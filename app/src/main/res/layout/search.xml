@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#f9fbff">
+
 
     <RelativeLayout
         android:id="@+id/relativeLayoutVon"
@@ -81,6 +83,8 @@
             android:text="Datum"
             android:layout_below="@+id/relativeLayoutNach"
             android:layout_alignParentLeft="true"
+            android:background="@color/colorBackgroundBlue"
+            android:textColor="@color/white"
             />
 
         <Button
@@ -89,13 +93,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zeit"
-
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/relativeLayoutNach" />
+            android:layout_below="@+id/relativeLayoutNach"
+            android:background="@color/colorBackgroundBlue"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
-
+    
     <Button
         android:layout_weight="1"
         android:id="@+id/buttonSuchen"
@@ -103,8 +108,10 @@
         android:layout_height="wrap_content"
         android:text="Suchen"
         android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@color/orange"
+        android:textColor="@color/white"
         android:layout_below="@+id/linearLayout" />
 
 </RelativeLayout>
