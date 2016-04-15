@@ -14,6 +14,7 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/action_bar</item>
         <item name="colorControlHighlight">@color/action_bar</item>
+        <item name="colorAccent">@color/white</item>
 
     </style>
 </resources>

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/lightBlue</color>
     <color name="colorPrimaryDark">@color/darkGrey</color>
-    <color name="colorAccent">@color/white</color>
+    <color name="colorAccent">@color/orange</color>
     <color name="action_bar">@color/white</color>
     <color name="colorBackgroundBlue">@color/lightBlue</color>
     <color name="colorSecondColor">@color/orange</color>
