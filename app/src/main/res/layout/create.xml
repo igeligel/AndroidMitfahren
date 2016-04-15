@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relativeLayoutVon"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#2196F3">
+        <TextView
+            android:id="@+id/textViewVon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Von:"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textColor="#ffffff" />
+        <EditText
+            android:id="@+id/editTextVon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:hint="Braunschweig"
+            android:textColor="#d4d4d4"
+            android:layout_toRightOf="@id/textViewVon"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutNach"
+        android:layout_below="@id/relativeLayoutVon"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#2196F3">
+        <TextView
+            android:id="@+id/textViewNach"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Nach:"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textColor="#ffffff" />
+        <EditText
+            android:id="@+id/editTextNach"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:hint="Braunschweig"
+            android:textColor="#d4d4d4"
+            android:layout_toRightOf="@id/textViewNach"
+            />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutZeit"
+        android:layout_below="@id/relativeLayoutNach"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#2196F3">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--
+            Abfahrts text in folgendes Schema ändern:
+            08.04. 9:45
+            -->
+            <Button
+
+                android:text="Abfahrt"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:clickable="false" />
+            <!--
+            Ankunfts text in folgendes Schema ändern:
+            08.04. 9:45
+            -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ankunft"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutDescription"
+        android:layout_below="@id/relativeLayoutZeit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#2196F3">
+        <TextView
+            android:id="@+id/textViewBeschreibung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beschreibung"/>
+        <EditText
+            android:layout_toRightOf="@id/textViewBeschreibung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/relativeLayoutDescription"
+        android:layout_height="60dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Erstellen"/>
+    </RelativeLayout>
+
+    <!-- MULTILINE TEXT-->
+
+
+</RelativeLayout>
