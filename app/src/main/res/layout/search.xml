@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#f9fbff">
 
 
@@ -16,103 +17,102 @@
             android:id="@+id/textViewVon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Von:"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginRight="5dp"
             android:gravity="center_vertical"
+            android:text="Von:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white" />
+
         <AutoCompleteTextView
             android:id="@+id/editTextVon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_toRightOf="@id/textViewVon"
             android:hint="Braunschweig..."
-            android:textColor="@color/white"
-
-            />
-
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white" />
         />
-
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayoutNach"
-        android:layout_below="@id/relativeLayoutVon"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@id/relativeLayoutVon"
         android:background="@color/colorBackgroundBlue">
 
         <TextView
             android:id="@+id/textViewNach"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Nach:"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5dp"
             android:gravity="center_vertical"
+            android:text="Nach:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white" />
-        <EditText
+
+        <AutoCompleteTextView
             android:id="@+id/editTextNach"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_toRightOf="@id/textViewNach"
             android:hint="Hamburg..."
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
 
             />
     </RelativeLayout>
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/relativeLayoutNach"
-        android:id="@+id/linearLayout"
         android:background="@color/colorBackgroundBlue">
+
         <Button
             android:id="@+id/buttonDatum"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Datum"
-            android:layout_below="@+id/relativeLayoutNach"
             android:layout_alignParentLeft="true"
+            android:layout_below="@+id/relativeLayoutNach"
+            android:layout_weight="1"
             android:background="@color/colorBackgroundBlue"
-            android:textColor="@color/white"
-            />
+            android:text="Datum"
+            android:textColor="@color/white" />
 
         <Button
-            android:layout_weight="1"
             android:id="@+id/buttonZeit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zeit"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/relativeLayoutNach"
+            android:layout_weight="1"
             android:background="@color/colorBackgroundBlue"
-            android:textColor="@color/white"/>
+            android:text="Zeit"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
-    
+
     <Button
-        android:layout_weight="1"
         android:id="@+id/buttonSuchen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Suchen"
+        android:layout_below="@+id/linearLayout"
         android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:background="@color/orange"
+        android:onClick="saveData"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:background="@color/orange"
-        android:textColor="@color/white"
-        android:layout_below="@+id/linearLayout"
-        android:onClick="saveData" />
+        android:text="Suchen"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

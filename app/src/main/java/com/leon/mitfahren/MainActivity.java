@@ -36,13 +36,17 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search);
     // Get a reference to the AutoCompleteTextView in the layout
-    AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.editTextVon);
+    AutoCompleteTextView editTextVon = (AutoCompleteTextView) findViewById(R.id.editTextVon);
+    AutoCompleteTextView editTextNach = (AutoCompleteTextView) findViewById(R.id.editTextNach);
+
     // Get the string array
     String[] countries = getResources().getStringArray(R.array.cities_array);
     // Create the adapter and set it to the AutoCompleteTextView
     ArrayAdapter<String> adapter =
         new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
-    textView.setAdapter(adapter);
+    editTextVon.setAdapter(adapter);
+    editTextNach.setAdapter(adapter);
+
     dateButton = (Button) findViewById(R.id.buttonDatum);
     timeButton = (Button) findViewById(R.id.buttonZeit);
 
