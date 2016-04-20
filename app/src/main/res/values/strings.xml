@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Mitfahren</string>
+    <string-array name="cities_array">
+        <item>Ahrensburg</item>
+        <item>Altenbruch</item>
+        <item>Braunschweig</item>
+        <item>Bremen</item>
+        <item>Bremerhaven</item>
+        <item>Hamburg</item>
+        <item>Hannover</item>
+        <item>Berlin</item>
+    </string-array>
 </resources>

@@ -24,7 +24,7 @@
             android:layout_marginRight="5dp"
             android:gravity="center_vertical"
             android:textColor="@color/white" />
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextVon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
