@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:onClick="saveData">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="saveData">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutVon"
@@ -23,16 +23,17 @@
             android:gravity="center"
             android:text="Von:"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
 
         <AutoCompleteTextView
             android:id="@+id/editTextVon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/textViewVon"
-            android:hint="Braunschweig"
+            android:hint="Braunschweig..."
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#d4d4d4" />
+            android:textColor="@color/white"/>
+        />
     </RelativeLayout>
 
     <RelativeLayout
@@ -55,16 +56,18 @@
             android:gravity="center"
             android:text="Nach:"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
 
         <AutoCompleteTextView
             android:id="@+id/editTextNach"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/textViewNach"
-            android:hint="Braunschweig"
+            android:hint="Hamburg..."
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#d4d4d4" />
+            android:textColor="@color/white"
+
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -89,7 +92,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorBackgroundBlue"
                 android:text="Abfahrt"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/buttonAnkunft"
@@ -100,7 +103,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorBackgroundBlue"
                 android:text="Ankunft"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -124,15 +127,15 @@
             android:gravity="center"
             android:text="Beschreibung:"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/descriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/textViewBeschreibung"
             android:ems="10"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"/>
 
     </RelativeLayout>
 
@@ -153,6 +156,6 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="Erstellen"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
     </RelativeLayout>
 </RelativeLayout>

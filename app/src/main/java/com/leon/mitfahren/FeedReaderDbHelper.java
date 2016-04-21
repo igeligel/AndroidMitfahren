@@ -12,24 +12,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
   // If you change the database schema, you must increment the database version.
 
-  public static final int DATABASE_VERSION = 1;
+  public static final int DATABASE_VERSION = 4;
   public static final String DATABASE_NAME = "drive.db";
 
 
   private static final String TEXT_TYPE = " TEXT";
   private static final String INTEGER_TYPE = " INTEGER";
+  private static final String BIGINTEGERT_TYPE = " BIGINTEGER";
   private static final String COMMA_SEP = ",";
   private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FeedReaderContract.FeedEntry.TABLE_NAME + " ("
               + FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID
               + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_YEAR + INTEGER_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_MONTH + INTEGER_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_DAY + INTEGER_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_HOUR + INTEGER_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_MINUTE + INTEGER_TYPE + COMMA_SEP
               + FeedReaderContract.FeedEntry.COLUMN_NAME_FROM + TEXT_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_TO + TEXT_TYPE
+              + FeedReaderContract.FeedEntry.COLUMN_NAME_TO + TEXT_TYPE + COMMA_SEP
+              + FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE + BIGINTEGERT_TYPE + COMMA_SEP
+              + FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL + BIGINTEGERT_TYPE + COMMA_SEP
+              + FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE
               + " );";
 
   private static final String SQL_DELETE_ENTRIES =

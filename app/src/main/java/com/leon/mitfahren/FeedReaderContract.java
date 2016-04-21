@@ -14,12 +14,10 @@ public final class FeedReaderContract {
   public static abstract class FeedEntry implements BaseColumns {
     public static final String TABLE_NAME = "drive";
     public static final String COLUMN_NAME_ENTRY_ID = "driveid";
-    public static final String COLUMN_NAME_YEAR = "year";
-    public static final String COLUMN_NAME_MONTH = "month";
-    public static final String COLUMN_NAME_DAY = "day";
-    public static final String COLUMN_NAME_HOUR = "hour";
-    public static final String COLUMN_NAME_MINUTE = "minute";
     public static final String COLUMN_NAME_FROM = "driveFrom";
     public static final String COLUMN_NAME_TO = "driveTo";
+    public static final String COLUMN_NAME_DEPARTURE = "departure";
+    public static final String COLUMN_NAME_ARRIVAL = "arrival";
+    public static final String COLUMN_NAME_DESCRIPTION = "description";
   }
 }

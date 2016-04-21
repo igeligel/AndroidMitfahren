@@ -4,11 +4,15 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -16,6 +20,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,6 +33,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
   Button dateButton;
   Button timeButton;
+  Button searchButton;
+
   Calendar myCalendar = Calendar.getInstance();
 
   DatePickerDialog.OnDateSetListener date;
@@ -39,16 +48,19 @@ public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView editTextVon = (AutoCompleteTextView) findViewById(R.id.editTextVon);
     AutoCompleteTextView editTextNach = (AutoCompleteTextView) findViewById(R.id.editTextNach);
 
+    searchButton = (Button) findViewById(R.id.buttonSuchen);
+
     // Get the string array
     String[] countries = getResources().getStringArray(R.array.cities_array);
     // Create the adapter and set it to the AutoCompleteTextView
-    ArrayAdapter<String> adapter =
-        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
     editTextVon.setAdapter(adapter);
     editTextNach.setAdapter(adapter);
 
     dateButton = (Button) findViewById(R.id.buttonDatum);
     timeButton = (Button) findViewById(R.id.buttonZeit);
+
+
 
     date = new DatePickerDialog.OnDateSetListener() {
       @Override
@@ -92,13 +104,19 @@ public class MainActivity extends AppCompatActivity {
           myCalendar.get(Calendar.MINUTE), true).show();
       }
     });
+
+    searchButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Log.d("Mitfahren Suche:", loadData());
+      }
+    });
   }
 
   private void updateDateLabel() {
     String myFormat = "MM/dd/yy"; // In which you need put here
     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
     dateButton.setText(sdf.format(myCalendar.getTime()));
-    // dateButton.setFreezesText(true);
   }
 
   private void updateTimeLabel() {
@@ -107,56 +125,31 @@ public class MainActivity extends AppCompatActivity {
     timeButton.setText(sdf.format(myCalendar.getTime()));
   }
 
-
-  private long saveData(
-      int year,
-      int month,
-      int day,
-      int hour,
-      int minute,
-      String from,
-      String to) {
-    FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context)this);
-
-    ContentValues content = new ContentValues();
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM, from);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TO, to);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_YEAR, year);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_MONTH, month);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DAY, day);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_HOUR, hour);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_MINUTE, minute);
-
-    long newRowId;
-    SQLiteDatabase db = feedReaderDbHelper.getWritableDatabase();
-    newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, content);
-
-    Log.d("Mitfahren", String.valueOf(newRowId));
-    return newRowId;
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.game_menu, menu);
+    return true;
   }
 
-  /**
-   * Save the data of the current calendar.
-   * @param view Current View.
-   */
-  public void saveData(View view) {
-    EditText vonText = (EditText) findViewById(R.id.editTextVon);
-    EditText nachText = (EditText) findViewById(R.id.editTextNach);
-
-    String fromString = vonText.getText().toString();
-    String toString = nachText.getText().toString();
-
-    if (fromString != "" && toString != "") {
-      int year = myCalendar.get(Calendar.YEAR);
-      int month = myCalendar.get(Calendar.MONTH);
-      int day = myCalendar.get(Calendar.DAY_OF_MONTH);
-      int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
-      int minute = myCalendar.get(Calendar.MINUTE);
-      saveData(year, month, day, hour, minute, fromString, toString);
-      loadData();
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle item selection
+    switch (item.getItemId()) {
+      case R.id.search:
+        return true;
+      case R.id.create:
+        Intent intent = new Intent(this, Create.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
   }
 
+  // TODO: Gib dir das mal als objekt zurück und probier ne liste einzufügen :P + Bedingungen für die Suche.
   private String loadData() {
     FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context)this);
     SQLiteDatabase db = feedReaderDbHelper.getReadableDatabase();
@@ -165,11 +158,9 @@ public class MainActivity extends AppCompatActivity {
       FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID,
       FeedReaderContract.FeedEntry.COLUMN_NAME_FROM,
       FeedReaderContract.FeedEntry.COLUMN_NAME_TO,
-      FeedReaderContract.FeedEntry.COLUMN_NAME_YEAR,
-      FeedReaderContract.FeedEntry.COLUMN_NAME_MONTH,
-      FeedReaderContract.FeedEntry.COLUMN_NAME_DAY,
-      FeedReaderContract.FeedEntry.COLUMN_NAME_HOUR,
-      FeedReaderContract.FeedEntry.COLUMN_NAME_MINUTE
+      FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL,
+      FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE,
+      FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION
     };
     String sortOrder =
                 FeedReaderContract.FeedEntry.COLUMN_NAME_FROM + " DESC";
@@ -182,12 +173,32 @@ public class MainActivity extends AppCompatActivity {
         null,
         null,
         sortOrder);
-    cursor.moveToFirst();
-    String test = cursor.getString(
-        cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_DAY)
-    );
-    return test;
+    cursor.moveToLast();
+
+    JSONObject jObjectData = new JSONObject();
+    try {
+      jObjectData.put(
+        FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID,
+        cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID)));
+      jObjectData.put(
+        FeedReaderContract.FeedEntry.COLUMN_NAME_FROM,
+        cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM)));
+      jObjectData.put(
+        FeedReaderContract.FeedEntry.COLUMN_NAME_TO,
+        cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_TO)));
+      jObjectData.put(
+        FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL,
+        cursor.getLong(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL)));
+      jObjectData.put(
+        FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE,
+        cursor.getLong(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE)));
+      jObjectData.put(
+        FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION,
+        cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION)));
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    Log.d("Last Entry", jObjectData.toString());
+    return jObjectData.toString();
   }
-
-
 }
