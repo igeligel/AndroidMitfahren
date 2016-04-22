@@ -143,11 +143,13 @@ public class Create extends AppCompatActivity {
         editTextVon = (AutoCompleteTextView) findViewById(R.id.editTextVon);
         editTextNach = (AutoCompleteTextView) findViewById(R.id.editTextNach);
         editTextBeschreibung = (EditText) findViewById(R.id.descriptionEditText);
-        saveData(GetTimestampByCalendar(ankunftCalendar),
-          GetTimestampByCalendar(abfahrtCalendar),
-          editTextVon.getText().toString(),
-          editTextNach.getText().toString(),
-          editTextBeschreibung.getText().toString());
+        if(editTextVon != null && editTextNach != null && editTextBeschreibung != null) {
+          saveData(GetTimestampByCalendar(ankunftCalendar),
+                  GetTimestampByCalendar(abfahrtCalendar),
+                  editTextVon.getText().toString(),
+                  editTextNach.getText().toString(),
+                  editTextBeschreibung.getText().toString());
+        }
       }
     });
   }
@@ -215,7 +217,5 @@ public class Create extends AppCompatActivity {
     return newRowId;
   }
 
-  public void saveData(View vw) {
 
-  }
 }

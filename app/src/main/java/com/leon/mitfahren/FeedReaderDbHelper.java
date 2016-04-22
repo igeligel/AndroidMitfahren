@@ -2,9 +2,12 @@ package com.leon.mitfahren;
 
 // import com.leon.mitfahren.FeedReaderContract.*;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.leon.mitfahren.FeedReaderContract.*;
 
 /**
  * Created by Leon on 20.04.16.
@@ -58,4 +61,5 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
   public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     onUpgrade(db, oldVersion, newVersion);
   }
+
 }
