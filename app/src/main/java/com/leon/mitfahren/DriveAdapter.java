@@ -31,9 +31,13 @@ public class DriveAdapter extends ArrayAdapter<DriveEntity> {
         // Lookup view for data population
         TextView driveFrom = (TextView) convertView.findViewById(R.id.searchedFrom);
         TextView driveTo = (TextView) convertView.findViewById(R.id.searchedTo);
+        TextView departureTimeHour = (TextView) convertView.findViewById(R.id.searchedDepartureTimeHour);
+        TextView departureTimeMinute = (TextView) convertView.findViewById(R.id.searchedDepartureTimeMinute);
         // Populate the data into the template view using the data object
         driveFrom.setText(driveEntitys.getFrom());
         driveTo.setText(driveEntitys.getTo());
+        departureTimeHour.setText(driveEntitys.getHour() + ":");
+        departureTimeMinute.setText(driveEntitys.getMinute());
         // Return the completed view to render on screen
         return convertView;
     }

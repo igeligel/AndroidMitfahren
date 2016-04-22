@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/searchedFrom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="From" />
+        android:layout_height="match_parent"
+        android:text="From"
+        android:layout_weight="1" />
     <TextView
         android:id="@+id/searchedTo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To" />
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/searchedFrom"
+        android:text="To"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/searchedDepartureTimeHour"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/searchedTo"
+        android:text="To"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/searchedDepartureTimeMinute"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/searchedDepartureTimeHour"
+        android:text="To"
+        android:layout_weight="1" />
 
-</LinearLayout>
+
+</RelativeLayout>

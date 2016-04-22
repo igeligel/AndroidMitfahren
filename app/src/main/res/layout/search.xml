@@ -27,7 +27,7 @@
             android:textColor="@color/white" />
 
         <AutoCompleteTextView
-            android:id="@+id/editTextVon"
+            android:id="@+id/searchTextVon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/textViewVon"
@@ -58,7 +58,7 @@
             android:textColor="@color/white" />
 
         <AutoCompleteTextView
-            android:id="@+id/editTextNach"
+            android:id="@+id/searchTextNach"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/textViewNach"

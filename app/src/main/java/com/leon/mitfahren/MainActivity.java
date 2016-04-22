@@ -27,8 +27,9 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.Locale;
+
+import com.leon.mitfahren.FeedReaderContract.FeedEntry;
 
 // import com.leon.mitfahren.FeedReaderContract;
 
@@ -49,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search);
     // Get a reference to the AutoCompleteTextView in the layout
-    AutoCompleteTextView editTextVon = (AutoCompleteTextView) findViewById(R.id.editTextVon);
-    AutoCompleteTextView editTextNach = (AutoCompleteTextView) findViewById(R.id.editTextNach);
+    AutoCompleteTextView editTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
+    AutoCompleteTextView editTextNach = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
 
     searchButton = (Button) findViewById(R.id.buttonSuchen);
 
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
       driveAdapter = new DriveAdapter(this, arrayOfDrives);
       ListView listView = (ListView) findViewById(R.id.listViewSuchen);
       listView.setAdapter(driveAdapter);
-      //Test
+
 
 
     dateButton = (Button) findViewById(R.id.buttonDatum);
@@ -220,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
     */
   }
 
-  private LinkedList<JSONObject> loadData(String startPoint, String endPoint, long departureTime){
+  private ArrayList<JSONObject> loadData(String startPoint, String endPoint, long departureTime){
     FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context)this);
     SQLiteDatabase db = feedReaderDbHelper.getReadableDatabase();
 
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
     Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection,
             selection, null, null, null, sortOrder);
 
-      LinkedList<JSONObject> possibleDrives = new LinkedList<>();
+      ArrayList<JSONObject> possibleDrives = new ArrayList<>();
       while(cursor.moveToNext()) {
           JSONObject jObjectData = new JSONObject();
           try {
@@ -277,37 +278,65 @@ public class MainActivity extends AppCompatActivity {
   }
     //Sample
     public void testLoad(View view){
-        //Save some value
-        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context)this);
+        AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
+        AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
 
-        ContentValues content = new ContentValues();
-        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM, "Braunschweig");
-        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TO, "Hannover");
-        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE, 1462881600);
-        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL, 1462896000);
-        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION, "Bla");
+        String from = searchTextVon.getText().toString();
+        String to = searchTextTo.getText().toString();
+        long timestamp = GetTimestampByCalendar(myCalendar);
 
-        long newRowId;
-        SQLiteDatabase db = feedReaderDbHelper.getWritableDatabase();
-        newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, content);
+        //TODO delete this later
+        //from here
+        from = "Braunschweig";
+        to = "Hannover";
+        timestamp = 1461342091;
+        putHelperSamples();
+        //until here
 
-        Log.d("LinkedListSize",loadData("Braunschweig", "Hannover", 1462881600).size() + "");
+        if(from != null && to != null){
+            ArrayList<JSONObject> possibleResultList = loadData(from, to, timestamp);
+            for(JSONObject json:possibleResultList) {
+                try {
+                    String JSONfrom = json.getString(FeedEntry.COLUMN_NAME_FROM);
+                    String JSONto = json.getString(FeedEntry.COLUMN_NAME_TO);
+                    long JSONarrival = json.getLong(FeedEntry.COLUMN_NAME_ARRIVAL);
+                    long JSONdeparture = json.getLong(FeedEntry.COLUMN_NAME_DEPARTURE);
+                    String JSONdescription = json.getString(FeedEntry.COLUMN_NAME_DESCRIPTION);
 
-        int i = 0;
-
-        for(JSONObject jo: loadData("Braunschweig", "Hannover", 1462881600)){
-            String str = "";
-            try{
-                str = jo.getString(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM);
-            }catch(Exception e){
-                e.printStackTrace();
+                    DriveEntity driveEnt = new DriveEntity(JSONfrom,JSONto,JSONarrival,JSONdeparture,JSONdescription);
+                    driveAdapter.add(driveEnt);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            Log.d("From" + i++,str);
+
+        }else{
+            Log.d("Else: from",from);
+            Log.d("Else: to",to);
         }
 
     }
 
     private void addEntity(DriveEntity driveEntity){
         driveAdapter.add(driveEntity);
+    }
+
+    private long GetTimestampByCalendar(Calendar calendar) {
+        return calendar.getTimeInMillis() / 1000;
+    }
+
+    private void putHelperSamples(){
+        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context)this);
+
+        ContentValues content = new ContentValues();
+        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM, "Braunschweig");
+        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TO, "Hannover");
+        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE, 1461342391);
+        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL, 1461342691);
+        content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION, "Bla");
+
+        long newRowId;
+        SQLiteDatabase db = feedReaderDbHelper.getWritableDatabase();
+        newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, content);
     }
 }

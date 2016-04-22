@@ -24,13 +24,11 @@ public class DriveEntity {
         this.description = description;
     }
 
-    public String getMonth(){
-        return "Januar";
-    }
-
-    public String getDay(){
+    public String getHour(){
         return "10";
     }
+
+    public String getMinute(){ return "30"; }
 
     public String getFrom() {
         return from;
