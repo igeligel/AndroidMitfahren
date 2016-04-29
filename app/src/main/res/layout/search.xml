@@ -115,9 +115,15 @@
         android:textColor="@color/white"
         android:onClick="testLoad" />
 
-    <ListView
+    <!--<ListView
         android:id="@+id/listViewSuchen"
         android:layout_below="@+id/buttonSuchen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"></ListView>-->
+
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_below="@+id/buttonSuchen"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 </RelativeLayout>

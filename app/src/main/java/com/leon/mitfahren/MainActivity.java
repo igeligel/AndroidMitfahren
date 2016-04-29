@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TimePicker;
 
@@ -27,6 +28,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import com.leon.mitfahren.FeedReaderContract.FeedEntry;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
   Button dateButton;
   Button timeButton;
   Button searchButton;
+    ExpandableListView expListView;
 
   Calendar myCalendar = Calendar.getInstance();
 
@@ -45,10 +49,24 @@ public class MainActivity extends AppCompatActivity {
 
     DriveAdapter driveAdapter;
 
+    ExpandableListAdapter listAdapter;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search);
+
+      // get the listview
+      expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+
+      listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+      // setting list adapter
+      expListView.setAdapter(listAdapter);
+
     // Get a reference to the AutoCompleteTextView in the layout
     AutoCompleteTextView editTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
     AutoCompleteTextView editTextNach = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
@@ -65,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
 
       //Search Adapter
-      ArrayList<DriveEntity> arrayOfDrives = new ArrayList<DriveEntity>();
-      driveAdapter = new DriveAdapter(this, arrayOfDrives);
-      ListView listView = (ListView) findViewById(R.id.listViewSuchen);
-      listView.setAdapter(driveAdapter);
+      // ArrayList<DriveEntity> arrayOfDrives = new ArrayList<DriveEntity>();
+      // driveAdapter = new DriveAdapter(this, arrayOfDrives);
+      //ListView listView = (ListView) findViewById(R.id.listViewSuchen);
+      //listView.setAdapter(driveAdapter);
 
 
 
