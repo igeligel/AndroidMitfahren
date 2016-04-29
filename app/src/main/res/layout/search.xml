@@ -112,8 +112,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Suchen"
-        android:textColor="@color/white"
-        android:onClick="testLoad" />
+        android:textColor="@color/white" />
 
     <!--<ListView
         android:id="@+id/listViewSuchen"

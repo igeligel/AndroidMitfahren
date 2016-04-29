@@ -4,15 +4,34 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="#000000">
+    android:background="#FFF">
 
 
     <TextView
-        android:id="@+id/lblListHeader"
+        android:id="@+id/list_group_TextVon"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textSize="17dp"
-        android:textColor="#f9f93d" />
+        android:text="Braunschweig"/>
+
+    <ImageView
+        android:id="@+id/list_group_imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@id/list_group_TextVon"/>
+
+    <TextView
+        android:id="@+id/list_group_TextNach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/list_group_imageView"
+        android:text="Hannover"/>
+
+    <TextView
+        android:id="@+id/list_group_Datum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/list_group_TextNach"
+        android:text="12:33"/>
 
 </LinearLayout>

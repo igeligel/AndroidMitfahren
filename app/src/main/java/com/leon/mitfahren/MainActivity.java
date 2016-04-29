@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +30,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -70,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
     // Get a reference to the AutoCompleteTextView in the layout
     AutoCompleteTextView editTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
     AutoCompleteTextView editTextNach = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
+
+
 
     searchButton = (Button) findViewById(R.id.buttonSuchen);
 
@@ -138,12 +143,13 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    /**searchButton.setOnClickListener(new View.OnClickListener() {
+    searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Log.d("Mitfahren Suche:", loadData());
+        // Log.d("Mitfahren Suche:", testLoad());
+          testLoad();
       }
-    });*/
+    });
   }
 
   private void updateDateLabel() {
@@ -295,7 +301,8 @@ public class MainActivity extends AppCompatActivity {
       return possibleDrives;
   }
     //Sample
-    public void testLoad(View view){
+    public void testLoad(){
+        Log.d("mitfahren", "Started");
         AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
         AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
 
@@ -305,28 +312,48 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO delete this later
         //from here
-        from = "Braunschweig";
-        to = "Hannover";
-        timestamp = 1461342091;
-        putHelperSamples();
+        // putHelperSamples();
         //until here
 
-        if(from != null && to != null){
+        if(from != "" && to != ""){
             ArrayList<JSONObject> possibleResultList = loadData(from, to, timestamp);
+            Log.d("mitfahren", "results: " + possibleResultList.size());
+
+            listDataHeader = new ArrayList<>();
+            listDataChild = new HashMap<>();
             for(JSONObject json:possibleResultList) {
                 try {
                     String JSONfrom = json.getString(FeedEntry.COLUMN_NAME_FROM);
                     String JSONto = json.getString(FeedEntry.COLUMN_NAME_TO);
-                    long JSONarrival = json.getLong(FeedEntry.COLUMN_NAME_ARRIVAL);
                     long JSONdeparture = json.getLong(FeedEntry.COLUMN_NAME_DEPARTURE);
+                    long JSONarrival = json.getLong(FeedEntry.COLUMN_NAME_ARRIVAL);
+
                     String JSONdescription = json.getString(FeedEntry.COLUMN_NAME_DESCRIPTION);
 
-                    DriveEntity driveEnt = new DriveEntity(JSONfrom,JSONto,JSONarrival,JSONdeparture,JSONdescription);
-                    driveAdapter.add(driveEnt);
+                    Log.d("mitfahren", JSONfrom + " to " + JSONto + ". Arriving at: " + JSONarrival + ". Departure: " + JSONdeparture + ". Description: " + JSONdescription);
+                    Date departureDate = new Date(JSONdeparture * 1000);
+                    Date arrivalDate = new Date(JSONarrival * 1000);
+
+                    String header = JSONfrom + "-->" + JSONto + ": " + departureDate.toString();
+
+                    List<String> informations = new ArrayList<>();
+                    informations.add("From: " + JSONfrom);
+                    informations.add("To: " + JSONto);
+                    informations.add("Depature: " + departureDate.toString());
+                    informations.add("Arrival: " + arrivalDate.toString());
+                    informations.add("Description: " + JSONdescription);
+
+                    listDataHeader.add(header);
+                    listDataChild.put(header,informations);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+            listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+            // setting list adapter
+            expListView.setAdapter(listAdapter);
 
         }else{
             Log.d("Else: from",from);

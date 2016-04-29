@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +74,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
+        if (this._listDataHeader == null) return 0;
         return this._listDataHeader.size();
     }
 
@@ -90,7 +94,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.lblListHeader);
+                .findViewById(R.id.list_group_TextVon);
+
+        //Glide
+        ImageView imageArrow = (ImageView) convertView.findViewById(R.id.list_group_imageView);
+        Glide.with(_context).load(R.drawable.arrow).fitCenter().into(imageArrow);
+        //Glide Ende
+
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
