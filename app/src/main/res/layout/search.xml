@@ -1,128 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f9fbff">
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f9fbff">
 
     <RelativeLayout
-        android:id="@+id/relativeLayoutVon"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorBackgroundBlue">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/dummyLayout">
 
-        <TextView
-            android:id="@+id/textViewVon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchField">
+        <RelativeLayout
+            android:id="@+id/relativeLayoutVon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:gravity="center_vertical"
-            android:text="Von:"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white" />
+            android:background="@color/colorBackgroundBlue">
 
-        <AutoCompleteTextView
-            android:id="@+id/searchTextVon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@id/textViewVon"
-            android:hint="Braunschweig..."
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white" />
-        />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewVon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="Von:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"/>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayoutNach"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/relativeLayoutVon"
-        android:background="@color/colorBackgroundBlue">
-
-        <TextView
-            android:id="@+id/textViewNach"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="5dp"
-            android:gravity="center_vertical"
-            android:text="Nach:"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white" />
-
-        <AutoCompleteTextView
-            android:id="@+id/searchTextNach"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@id/textViewNach"
-            android:hint="Hamburg..."
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white"
-
+            <AutoCompleteTextView
+                android:id="@+id/searchTextVon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/textViewVon"
+                android:hint="Braunschweig..."
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"/>
             />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutNach"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/relativeLayoutVon"
+            android:background="@color/colorBackgroundBlue">
+
+            <TextView
+                android:id="@+id/textViewNach"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="Nach:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/searchTextNach"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/textViewNach"
+                android:hint="Hamburg..."
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relativeLayoutNach"
+            android:background="@color/colorBackgroundBlue">
+
+            <Button
+                android:id="@+id/buttonDatum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/relativeLayoutNach"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundBlue"
+                android:text="Datum"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/buttonZeit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/relativeLayoutNach"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundBlue"
+                android:text="Zeit"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relativeLayoutNach"
-        android:background="@color/colorBackgroundBlue">
 
-        <Button
-            android:id="@+id/buttonDatum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/relativeLayoutNach"
-            android:layout_weight="1"
-            android:background="@color/colorBackgroundBlue"
-            android:text="Datum"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/buttonZeit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/relativeLayoutNach"
-            android:layout_weight="1"
-            android:background="@color/colorBackgroundBlue"
-            android:text="Zeit"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 
 
     <Button
         android:id="@+id/buttonSuchen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/searchField"
         android:layout_centerInParent="true"
         android:layout_weight="1"
         android:background="@color/orange"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Suchen"
-        android:textColor="@color/white" />
-
-    <!--<ListView
-        android:id="@+id/listViewSuchen"
-        android:layout_below="@+id/buttonSuchen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>-->
+        android:textColor="@color/white"/>
 
     <ExpandableListView
         android:id="@+id/lvExp"
-        android:layout_below="@+id/buttonSuchen"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:layout_below="@+id/buttonSuchen"/>
 </RelativeLayout>
