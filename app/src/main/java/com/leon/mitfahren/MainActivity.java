@@ -2,13 +2,11 @@ package com.leon.mitfahren;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +19,6 @@ import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.leon.mitfahren.FeedReaderContract.FeedEntry;
+import com.leon.models.Ride;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -129,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     String[] cities = getResources().getStringArray(R.array.cities_array);
     // Create the adapter and set it to the AutoCompleteTextView's.
     ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cities);
-    for (AutoCompleteTextView autoCompleteTextView: autoCompleteTextViews) {
+    for (AutoCompleteTextView autoCompleteTextView : autoCompleteTextViews) {
       autoCompleteTextView.setAdapter(autoCompleteAdapter);
     }
   }
@@ -201,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
           searchMode = false;
         } else {
           // Load the list of entries and set the search field invisible.
-          testLoad();
+          searchEntities();
           searchField.setVisibility(View.INVISIBLE);
           buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.dummyLayout);
           searchButton.setLayoutParams(buttonLayoutParams);
@@ -223,10 +219,7 @@ public class MainActivity extends AppCompatActivity {
     timeButton.setText(sdf.format(myCalendar.getTime()));
   }
 
-  private ArrayList<JSONObject> loadData(String startPoint, String endPoint, long departureTime) {
-    FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context) this);
-    SQLiteDatabase db = feedReaderDbHelper.getReadableDatabase();
-
+  private String[] getSearchProjection() {
     String[] projection = {
       FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID,
       FeedReaderContract.FeedEntry.COLUMN_NAME_FROM,
@@ -235,107 +228,89 @@ public class MainActivity extends AppCompatActivity {
       FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE,
       FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION
     };
-
-    String sortOrder =
-      FeedReaderContract.FeedEntry.COLUMN_NAME_FROM + " DESC";
-
-    String selectionFrom = FeedReaderContract.FeedEntry.COLUMN_NAME_FROM + " like " + "'%" + startPoint + "%'";
-    String selectionTo = FeedReaderContract.FeedEntry.COLUMN_NAME_TO + " like " + "'%" + endPoint + "%'";
-    String selectionDeparture = FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE + " between " + departureTime + " and " + (departureTime + 21600);
-    String selection = selectionFrom + " and " + selectionTo + " and " + selectionDeparture;
-
-    Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection,
-      selection, null, null, null, sortOrder);
-
-    ArrayList<JSONObject> possibleDrives = new ArrayList<>();
-    while (cursor.moveToNext()) {
-      JSONObject jObjectData = new JSONObject();
-      try {
-        jObjectData.put(
-          FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID,
-          cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID)));
-        jObjectData.put(
-          FeedReaderContract.FeedEntry.COLUMN_NAME_FROM,
-          cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM)));
-        jObjectData.put(
-          FeedReaderContract.FeedEntry.COLUMN_NAME_TO,
-          cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_TO)));
-        jObjectData.put(
-          FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL,
-          cursor.getLong(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL)));
-        jObjectData.put(
-          FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE,
-          cursor.getLong(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE)));
-        jObjectData.put(
-          FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION,
-          cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION)));
-
-        possibleDrives.add(jObjectData);
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-    }
-    return possibleDrives;
+    return projection;
   }
 
-  //Sample
-  public void testLoad() {
-    Log.d("mitfahren", "Started");
+  private int getTimeBuffer() {
+    return getResources().getInteger(R.integer.time_buffer);
+  }
+
+  private String getSearchSelection(String startPoint, String endPoint, long departureTime) {
+    String selectionFrom = FeedReaderContract.FeedEntry.COLUMN_NAME_FROM + " like " + "'%" + startPoint + "%'";
+    String selectionTo = FeedReaderContract.FeedEntry.COLUMN_NAME_TO + " like " + "'%" + endPoint + "%'";
+    String selectionDeparture = FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE + " between " + departureTime + " and " + (departureTime + getTimeBuffer());
+    String selection = selectionFrom + " and " + selectionTo + " and " + selectionDeparture;
+    return selection;
+  }
+
+  private String getSortOrder() {
+    return FeedEntry.COLUMN_NAME_DEPARTURE + " ASC";
+  }
+
+  private ArrayList<Ride> convertCursorToRidesList(Cursor cursor) {
+    ArrayList<Ride> possibleRides = new ArrayList<>();
+    while (cursor.moveToNext()) {
+      Ride ride = new Ride();
+      ride.Id = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID));
+      ride.DepartureCity = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM));
+      ride.ArrivalCity = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_TO));
+      ride.DepartureTime = cursor.getLong(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_DEPARTURE));
+      ride.ArrivalTime = cursor.getLong(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL));
+      ride.Description = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION));
+      possibleRides.add(ride);
+    }
+    return possibleRides;
+  }
+
+  private ArrayList<Ride> loadData(String startPoint, String endPoint, long departureTime) {
+    FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(this);
+    SQLiteDatabase db = feedReaderDbHelper.getReadableDatabase();
+    String[] projection = getSearchProjection();
+    String sortOrder = getSortOrder();
+    String selection = getSearchSelection(startPoint, endPoint, departureTime);
+    // Execute Query;
+    Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+
+    // Convert the cursor to a list.
+    return convertCursorToRidesList(cursor);
+  }
+
+  private List<String> createInformations(Ride ride) {
+
+    List<String> informations = new ArrayList<>();
+
+    Date departureDate = new Date(ride.DepartureTime * 1000);
+    Date arrivalDate = new Date(ride.ArrivalTime * 1000);
+    informations.add(ride.DepartureCity);
+    informations.add(ride.ArrivalCity);
+    DateFormat df = new SimpleDateFormat("H:mm");
+    informations.add(df.format(departureDate));
+    informations.add(df.format(arrivalDate));
+    informations.add(ride.Description);
+    return informations;
+  }
+
+  public void searchEntities() {
     AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
     AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
 
-    String from = searchTextVon.getText().toString();
-    String to = searchTextTo.getText().toString();
+    String fromCity = searchTextVon.getText().toString();
+    String toCity = searchTextTo.getText().toString();
     long timestamp = GetTimestampByCalendar(myCalendar);
 
-
-    if (from != "" && to != "") {
-      ArrayList<JSONObject> possibleResultList = loadData(from, to, timestamp);
-      Log.d("mitfahren", "results: " + possibleResultList.size());
-
+    if (fromCity != "" && toCity != "") {
+      ArrayList<Ride> possibleResultList = loadData(fromCity, toCity, timestamp);
       listDataHeader = new ArrayList<>();
       listDataChild = new HashMap<>();
-      for (JSONObject json : possibleResultList) {
-        try {
-          String Id = json.getString(FeedEntry.COLUMN_NAME_ENTRY_ID);
-          String JSONfrom = json.getString(FeedEntry.COLUMN_NAME_FROM);
-          String JSONto = json.getString(FeedEntry.COLUMN_NAME_TO);
-          long JSONdeparture = json.getLong(FeedEntry.COLUMN_NAME_DEPARTURE);
-          long JSONarrival = json.getLong(FeedEntry.COLUMN_NAME_ARRIVAL);
-
-          String JSONdescription = json.getString(FeedEntry.COLUMN_NAME_DESCRIPTION);
-
-          Log.d("mitfahren", JSONfrom + " to " + JSONto + ". Arriving at: " + JSONarrival + ". Departure: " + JSONdeparture + ". Description: " + JSONdescription);
-          Date departureDate = new Date(JSONdeparture * 1000);
-          Date arrivalDate = new Date(JSONarrival * 1000);
-
-          String header = Id;
-          List<String> informations = new ArrayList<>();
-          informations.add(JSONfrom);
-          informations.add(JSONto);
-          DateFormat df = new SimpleDateFormat("H:mm");
-
-          informations.add(df.format(departureDate));
-          informations.add(df.format(arrivalDate));
-          informations.add(JSONdescription);
-
-          listDataHeader.add(header);
-          listDataChild.put(header, informations);
-
-
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
+      for (Ride ride : possibleResultList) {
+        List<String> informations = createInformations(ride);
+        String header = Integer.toString(ride.Id);
+        listDataHeader.add(header);
+        listDataChild.put(header, informations);
       }
       listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-      // setting list adapter
       expListView.setAdapter(listAdapter);
-
-    } else {
-      Log.d("Else: from", from);
-      Log.d("Else: to", to);
     }
-
   }
 
   private void clearExpandableListView() {

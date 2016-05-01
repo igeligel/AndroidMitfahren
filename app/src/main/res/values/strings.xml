@@ -10,4 +10,5 @@
         <item>Hannover</item>
         <item>Berlin</item>
     </string-array>
+    <string name="debug_application_name">Mitfahren_Debug</string>
 </resources>
