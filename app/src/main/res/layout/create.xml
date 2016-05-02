@@ -134,7 +134,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/textViewBeschreibung"
             android:ems="10"
-            android:inputType="textMultiLine"/>
+            android:textColor="#ffffff"
+            android:inputType="textMultiLine" />
 
     </RelativeLayout>
 
