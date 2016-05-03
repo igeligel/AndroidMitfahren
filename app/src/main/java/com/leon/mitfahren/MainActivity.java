@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -78,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<AutoCompleteTextView> autoCompleteTextViews = new ArrayList<>();
         autoCompleteTextViews.add(editTextVon);
         autoCompleteTextViews.add(editTextNach);
+
+        // Set the background of the Dropdown field
+        editTextVon.setDropDownBackgroundDrawable(
+                new ColorDrawable(ContextCompat.getColor(
+                        getApplicationContext(), R.color.colorAutoCompleteTextBackground)));
+        editTextNach.setDropDownBackgroundDrawable(
+                new ColorDrawable(ContextCompat.getColor(
+                        getApplicationContext(),R.color.colorAutoCompleteTextBackground)));
 
         //region Initiate UI Elements.
 
