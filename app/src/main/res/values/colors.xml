@@ -8,10 +8,12 @@
     <color name="colorSecondColor">@color/orange</color>
     <color name="colorBackgroundGrey">@color/lightGrey</color>
     <color name="colorBackgroundDark">@color/darkGrey</color>
+    <color name="colorAutoCompleteTextBackground">@color/blue</color>
 
     <color name="lightBlue">#2196F3</color>
     <color name="orange">#FF9A13</color>
     <color name="white">#FFF</color>
     <color name="lightGrey">#F8F8F8</color>
     <color name="darkGrey">#0A1A27</color>
+    <color name="blue">#4DACF5</color>
 </resources>
