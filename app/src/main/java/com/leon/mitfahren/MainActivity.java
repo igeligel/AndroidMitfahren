@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // Load the list of entries and set the search field invisible.
                     if (getSearchType() == SearchType.NoCity) {
-                        makeToast("Keine Stadt angegeben");
+                        ToastManager.makeToast("Keine Stadt angegeben", getApplicationContext());
                         return;
                     }
                     searchEntities();
@@ -347,10 +347,10 @@ public class MainActivity extends AppCompatActivity {
         SearchType searchType = getSearchType();
         switch (searchType) {
             case JustDepartueCity:
-                makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten von " + fromCity + "angegeben");
+                ToastManager.makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten von " + fromCity + "angegeben", getApplicationContext());
                 break;
             case JustArrivalCity:
-                makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten zu " + toCity + "angegeben");
+                ToastManager.makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten zu " + toCity + "angegeben", getApplicationContext());
                 break;
             default:
                 break;
@@ -388,13 +388,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void makeToast(String text) {
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
 
     private void clearExpandableListView() {
         if (listDataHeader == null || listDataChild == null)

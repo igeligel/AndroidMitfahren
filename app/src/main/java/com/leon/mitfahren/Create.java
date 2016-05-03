@@ -3,7 +3,6 @@ package com.leon.mitfahren;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -20,150 +19,160 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.leon.models.Ride;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class Create extends AppCompatActivity {
-  Calendar abfahrtCalendar = Calendar.getInstance();
-  Calendar ankunftCalendar = Calendar.getInstance();
-  Button abfahrtButton;
-  Button ankunftButton;
+  // UI Elements
+  Button departureButton;
+  Button arrivalButton;
+  AutoCompleteTextView editTextDeparture;
+  AutoCompleteTextView editTextArrival;
+  EditText editTextDescription;
+  Button createRideButton;
 
-  Button erstellButton;
+  // Listener
+  DatePickerDialog.OnDateSetListener departureDatePickerDialogDateSetListener;
+  TimePickerDialog.OnTimeSetListener departureTimePickerSetListener;
 
-  DatePickerDialog.OnDateSetListener abfahrtdpdDateSetListener;
-  TimePickerDialog.OnTimeSetListener abfahrttpSetListener;
+  DatePickerDialog.OnDateSetListener arrivalDatePickerDateSetListener;
+  TimePickerDialog.OnTimeSetListener arrivalTimePickerSetListener;
 
-  DatePickerDialog.OnDateSetListener ankunftdpdDateSetListener;
-  TimePickerDialog.OnTimeSetListener ankunfttpSetListener;
-
-  AutoCompleteTextView editTextVon;
-  AutoCompleteTextView editTextNach;
-  EditText editTextBeschreibung;
+  Calendar departureCalendar = Calendar.getInstance();
+  Calendar arrivalCalendar = Calendar.getInstance();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.create);
 
-    editTextVon = (AutoCompleteTextView) findViewById(R.id.editTextVon);
-    editTextNach = (AutoCompleteTextView) findViewById(R.id.editTextNach);
+    editTextDeparture = (AutoCompleteTextView) findViewById(R.id.editTextVon);
+    editTextArrival = (AutoCompleteTextView) findViewById(R.id.editTextNach);
+    departureButton = (Button) findViewById(R.id.buttonAbfahrt);
+    arrivalButton = (Button) findViewById(R.id.buttonAnkunft);
+    createRideButton = (Button) findViewById(R.id.buttonErstellen);
 
     String[] cities = getResources().getStringArray(R.array.cities_array);
     ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, cities);
-    editTextVon.setAdapter(adapter);
-    editTextNach.setAdapter(adapter);
+    editTextDeparture.setAdapter(adapter);
+    editTextArrival.setAdapter(adapter);
 
+    initiateDepartureUserInterface();
+    initiateArrivalUserInterface();
+    initiateCreateButton();
+  }
 
-    abfahrtButton = (Button) findViewById(R.id.buttonAbfahrt);
-    ankunftButton = (Button) findViewById(R.id.buttonAnkunft);
-    erstellButton = (Button) findViewById(R.id.buttonErstellen);
-
+  private void initiateDepartureUserInterface() {
     // Abfahrt Begin
-    abfahrttpSetListener = new TimePickerDialog.OnTimeSetListener() {
+    departureTimePickerSetListener = new TimePickerDialog.OnTimeSetListener() {
       @Override
       public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        abfahrtCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        abfahrtCalendar.set(Calendar.MINUTE, minute);
-        updateAbfahrtButton();
+        departureCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        departureCalendar.set(Calendar.MINUTE, minute);
+        updateDepartureButton();
       }
     };
 
-    abfahrtdpdDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    departureDatePickerDialogDateSetListener = new DatePickerDialog.OnDateSetListener() {
       @Override
       public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        abfahrtCalendar.set(Calendar.YEAR, year);
-        abfahrtCalendar.set(Calendar.MONTH, monthOfYear);
-        abfahrtCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        departureCalendar.set(Calendar.YEAR, year);
+        departureCalendar.set(Calendar.MONTH, monthOfYear);
+        departureCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         new TimePickerDialog(
           Create.this,
-          abfahrttpSetListener,
-          abfahrtCalendar.get(Calendar.HOUR_OF_DAY),
-          abfahrtCalendar.get(Calendar.MINUTE), true).show();
+          departureTimePickerSetListener,
+          departureCalendar.get(Calendar.HOUR_OF_DAY),
+          departureCalendar.get(Calendar.MINUTE), true).show();
       }
     };
 
-    abfahrtButton.setOnClickListener(new View.OnClickListener() {
+    departureButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
           Create.this,
-          abfahrtdpdDateSetListener,
-          abfahrtCalendar.get(Calendar.YEAR),
-          abfahrtCalendar.get(Calendar.MONTH),
-          abfahrtCalendar.get(Calendar.DAY_OF_MONTH));
+          departureDatePickerDialogDateSetListener,
+          departureCalendar.get(Calendar.YEAR),
+          departureCalendar.get(Calendar.MONTH),
+          departureCalendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
       }
     });
     // Abfahrt ende
+  }
 
-    // Ankunft Anfang
-    ankunfttpSetListener = new TimePickerDialog.OnTimeSetListener() {
+  private void initiateArrivalUserInterface() {
+    arrivalTimePickerSetListener = new TimePickerDialog.OnTimeSetListener() {
       @Override
       public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        ankunftCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        ankunftCalendar.set(Calendar.MINUTE, minute);
-        updateAnkunftButton();
+        arrivalCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        arrivalCalendar.set(Calendar.MINUTE, minute);
+        updateArrivalButton();
       }
     };
 
-    ankunftdpdDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    arrivalDatePickerDateSetListener = new DatePickerDialog.OnDateSetListener() {
       @Override
       public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        ankunftCalendar.set(Calendar.YEAR, year);
-        ankunftCalendar.set(Calendar.MONTH, monthOfYear);
-        ankunftCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        arrivalCalendar.set(Calendar.YEAR, year);
+        arrivalCalendar.set(Calendar.MONTH, monthOfYear);
+        arrivalCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         new TimePickerDialog(
           Create.this,
-          ankunfttpSetListener,
-          ankunftCalendar.get(Calendar.HOUR_OF_DAY),
-          ankunftCalendar.get(Calendar.MINUTE), true).show();
+          arrivalTimePickerSetListener,
+          arrivalCalendar.get(Calendar.HOUR_OF_DAY),
+          arrivalCalendar.get(Calendar.MINUTE), true).show();
       }
     };
 
-    ankunftButton.setOnClickListener(new View.OnClickListener() {
+    arrivalButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
           Create.this,
-          ankunftdpdDateSetListener,
-          ankunftCalendar.get(Calendar.YEAR),
-          ankunftCalendar.get(Calendar.MONTH),
-          ankunftCalendar.get(Calendar.DAY_OF_MONTH));
+          arrivalDatePickerDateSetListener,
+          arrivalCalendar.get(Calendar.YEAR),
+          arrivalCalendar.get(Calendar.MONTH),
+          arrivalCalendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
       }
     });
-    // Ankunft ende
+  }
 
-
-    erstellButton.setOnClickListener(new View.OnClickListener() {
+  private void initiateCreateButton() {
+    createRideButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        editTextVon = (AutoCompleteTextView) findViewById(R.id.editTextVon);
-        editTextNach = (AutoCompleteTextView) findViewById(R.id.editTextNach);
-        editTextBeschreibung = (EditText) findViewById(R.id.descriptionEditText);
-        if(editTextVon != null && editTextNach != null && editTextBeschreibung != null) {
-          saveData(GetTimestampByCalendar(ankunftCalendar),
-                  GetTimestampByCalendar(abfahrtCalendar),
-                  editTextVon.getText().toString(),
-                  editTextNach.getText().toString(),
-                  editTextBeschreibung.getText().toString());
+        editTextDeparture = (AutoCompleteTextView) findViewById(R.id.editTextVon);
+        editTextArrival = (AutoCompleteTextView) findViewById(R.id.editTextNach);
+        editTextDescription = (EditText) findViewById(R.id.descriptionEditText);
+        if (editTextDeparture != null && editTextArrival != null && editTextDescription != null) {
+          Ride ride = new Ride();
+          ride.DepartureTime = GetTimestampByCalendar(departureCalendar);
+          ride.ArrivalTime = GetTimestampByCalendar(arrivalCalendar);
+          ride.DepartureCity = editTextDeparture.getText().toString();
+          ride.ArrivalCity = editTextArrival.getText().toString();
+          ride.Description = editTextDescription.getText().toString();
+          saveData(ride);
         }
       }
     });
   }
 
-  private void updateAbfahrtButton() {
-    String myFormat = "MM/dd/yy H:mm"; // In which you need put here
+  private void updateDepartureButton() {
+    String myFormat = "dd-MM-yy H:mm"; // In which you need put here
     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-    abfahrtButton.setText(sdf.format(abfahrtCalendar.getTime()));
+    departureButton.setText(sdf.format(departureCalendar.getTime()));
   }
 
-  private void updateAnkunftButton() {
-    String myFormat = "MM/dd/yy H:mm"; // In which you need put here
+  private void updateArrivalButton() {
+    String myFormat = "dd-MM-yy H:mm"; // In which you need put here
     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-    ankunftButton.setText(sdf.format(ankunftCalendar.getTime()));
+    arrivalButton.setText(sdf.format(arrivalCalendar.getTime()));
   }
 
   @Override
@@ -194,28 +203,50 @@ public class Create extends AppCompatActivity {
     return calendar.getTimeInMillis() / 1000;
   }
 
-  private long saveData(
-    long timestampAnkunft,
-    long timestampAbfahrt,
-    String from,
-    String to,
-    String description) {
-    FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper((Context)this);
-
+  private long saveData(Ride ride) {
+    // Check if params are valid.
+    if (!createParametersValid(ride))
+      return -1;
+    FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(this);
     ContentValues content = new ContentValues();
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM, from);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TO, to);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE, timestampAbfahrt);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL, timestampAnkunft);
-    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION, description);
+    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_FROM, ride.DepartureCity);
+    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TO, ride.ArrivalCity);
+    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE, ride.DepartureTime);
+    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL, ride.ArrivalTime);
+    content.put(FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION, ride.Description);
 
     long newRowId;
     SQLiteDatabase db = feedReaderDbHelper.getWritableDatabase();
     newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, content);
-
-    Log.d("Neue Mitfahrt mit Id:", String.valueOf(newRowId));
+    ToastManager.makeToast("Fahrt mit der Id #" + newRowId + " erstellt.", getApplicationContext());
     return newRowId;
   }
 
-
+  private boolean createParametersValid(Ride ride) {
+    if (ride.DepartureCity.length() == 0) {
+      ToastManager.makeToast("Keine Abfahrtsstadt angegeben.", getApplicationContext());
+      return false;
+    }
+    if (ride.ArrivalCity.length() == 0) {
+      ToastManager.makeToast("Keine Ankunftsstadt angegeben.", getApplicationContext());
+      return false;
+    }
+    if (ride.DepartureTime < (System.currentTimeMillis()/1000)) {
+      ToastManager.makeToast("Abfahrtszeit ist ungültig.", getApplicationContext());
+      return false;
+    }
+    if (ride.ArrivalTime < (System.currentTimeMillis()/1000)) {
+      ToastManager.makeToast("Ankunftszeit ist ungültig.", getApplicationContext());
+      return false;
+    }
+    if (ride.Description == "") {
+      ToastManager.makeToast("Keine Beschreibung angegeben.", getApplicationContext());
+      return false;
+    }
+    if (ride.ArrivalTime <= ride.DepartureTime) {
+      ToastManager.makeToast("Die Ankunftszeit kann nicht vor der Abfahrtszeit liegen.", getApplicationContext());
+      return false;
+    }
+    return true;
+  }
 }
