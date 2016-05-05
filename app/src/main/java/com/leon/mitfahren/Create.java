@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,11 +48,11 @@ public class Create extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.create);
 
-    editTextDeparture = (AutoCompleteTextView) findViewById(R.id.editTextVon);
-    editTextArrival = (AutoCompleteTextView) findViewById(R.id.editTextNach);
-    departureButton = (Button) findViewById(R.id.buttonAbfahrt);
-    arrivalButton = (Button) findViewById(R.id.buttonAnkunft);
-    createRideButton = (Button) findViewById(R.id.buttonErstellen);
+    editTextDeparture = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewDepartureCity);
+    editTextArrival = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewArrivalCity);
+    departureButton = (Button) findViewById(R.id.buttonDeparture);
+    arrivalButton = (Button) findViewById(R.id.buttonArrival);
+    createRideButton = (Button) findViewById(R.id.buttonCreateRide);
 
     String[] cities = getResources().getStringArray(R.array.cities_array);
     ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, cities);
@@ -147,9 +146,9 @@ public class Create extends AppCompatActivity {
     createRideButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        editTextDeparture = (AutoCompleteTextView) findViewById(R.id.editTextVon);
-        editTextArrival = (AutoCompleteTextView) findViewById(R.id.editTextNach);
-        editTextDescription = (EditText) findViewById(R.id.descriptionEditText);
+        editTextDeparture = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewDepartureCity);
+        editTextArrival = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewArrivalCity);
+        editTextDescription = (EditText) findViewById(R.id.editTextDescription);
         if (editTextDeparture != null && editTextArrival != null && editTextDescription != null) {
           Ride ride = new Ride();
           ride.DepartureTime = GetTimestampByCalendar(departureCalendar);
