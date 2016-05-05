@@ -1,4 +1,4 @@
-package com.leonkevin.mitfahren.domain;
+package com.leon.domain;
 
 /**
  * Created by Kevin on 05/05/2016.

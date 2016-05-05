@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".Create">
         </activity>
+        <activity android:name="com.leon.presentation.view.activity.CreateRideActivity"></activity>
     </application>
 
 </manifest>

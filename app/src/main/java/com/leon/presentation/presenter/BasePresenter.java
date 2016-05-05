@@ -1,4 +1,4 @@
-package com.leonkevin.mitfahren.presentation.presenter;
+package com.leon.presentation.presenter;
 
 import android.app.Activity;
 import android.widget.AutoCompleteTextView;
@@ -13,15 +13,16 @@ public class BasePresenter {
   public BasePresenter(Activity activity) {
     this.activity = activity;
   }
-  public Button getButtonById(int elementId) {
+
+  protected Button getButtonById(int elementId) {
     return (Button) activity.findViewById(elementId);
   }
 
-  public AutoCompleteTextView getAutoCompleteTextViewById(int elementId) {
+  protected AutoCompleteTextView getAutoCompleteTextViewById(int elementId) {
     return (AutoCompleteTextView) activity.findViewById(elementId);
   }
 
-  public EditText getEditTextById(int elementId) {
+  protected EditText getEditTextById(int elementId) {
     return (EditText) activity.findViewById(elementId);
   }
 }

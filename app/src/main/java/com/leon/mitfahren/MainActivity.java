@@ -2,7 +2,6 @@ package com.leon.mitfahren;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +20,6 @@ import android.widget.DatePicker;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +33,7 @@ import java.util.Locale;
 import com.leon.mitfahren.FeedReaderContract.FeedEntry;
 import com.leon.models.Ride;
 import com.leon.models.SearchType;
+import com.leon.presentation.view.activity.CreateRideActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -122,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, Create.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
+                return true;
+            case R.id.createNew:
+                Intent intent1 = new Intent(this, CreateRideActivity.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent1);
                 finish();
                 return true;
             default:

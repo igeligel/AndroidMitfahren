@@ -1,4 +1,4 @@
-package com.leonkevin.mitfahren.presentation.view.activity;
+package com.leon.presentation.view.activity;
 
 import com.leon.mitfahren.R;
 

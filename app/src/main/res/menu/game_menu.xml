@@ -4,4 +4,6 @@
           android:title="Suchen"/>
     <item android:id="@+id/create"
           android:title="Erstellen" />
+    <item android:id="@+id/createNew"
+          android:title="Create New" />
 </menu>
