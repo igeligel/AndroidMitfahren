@@ -18,6 +18,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.leon.data.database.FeedReaderContract;
+import com.leon.data.database.FeedReaderDbHelper;
 import com.leon.models.Ride;
 
 import java.text.SimpleDateFormat;

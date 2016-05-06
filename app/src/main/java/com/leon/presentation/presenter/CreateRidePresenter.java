@@ -79,6 +79,14 @@ public class CreateRidePresenter extends BasePresenter{
     autoCompletePresenter.setCitiesToAutoCompleteList(autoCompleteTextViews);
   }
 
+  private String getTextFromAutoCompleteText(AutoCompleteTextView autoCompleteTextView) {
+    return autoCompleteTextView.getText().toString();
+  }
+
+  private String getTextFromEditText(EditText editText) {
+    return editText.getText().toString();
+  }
+
   public CreateRideViewModel getCreateRideViewModel() {
     return this.createRideViewModel;
   }

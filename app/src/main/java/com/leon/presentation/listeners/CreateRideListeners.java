@@ -3,12 +3,13 @@ package com.leon.presentation.listeners;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.leon.mitfahren.R;
+import com.leon.domain.CreateRideModel;
+import com.leon.domain.interactor.SetRide;
+import com.leon.domain.validator.CreateRideValidator;
 import com.leon.presentation.view.activity.CreateRideActivity;
 
 import java.text.SimpleDateFormat;
@@ -52,12 +53,14 @@ public class CreateRideListeners implements ICreateListeners {
       public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
+        String myFormat = "dd-MM-yy H:mm"; // In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         switch (calendarType) {
           case Arrival:
-            createRideActivity.createRideViewModel.buttonArrival.setText("Arrival");
+            createRideActivity.createRideViewModel.buttonArrival.setText(sdf.format(calendar.getTime()));
             break;
           case Departure:
-            createRideActivity.createRideViewModel.buttonDeparture.setText("Departure");
+            createRideActivity.createRideViewModel.buttonDeparture.setText(sdf.format(calendar.getTime()));
             break;
           default:
             break;
@@ -105,12 +108,15 @@ public class CreateRideListeners implements ICreateListeners {
     createRideActivity.createRideViewModel.buttonCreateRide.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        String myFormat = "dd-MM-yy H:mm"; // In which you need put here
-
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        Log.d(v.getResources().getString(R.string.debug_application_name), sdf.format(departureCalendar.getTime()));
-        Log.d(v.getResources().getString(R.string.debug_application_name), sdf.format(arrivalCalender.getTime()));
-        Log.d(v.getResources().getString(R.string.debug_application_name), "Create clicked");
+        CreateRideModel createRideModel = new CreateRideModel();
+        createRideModel.DepartureCity = createRideActivity.createRideViewModel.autoCompleteTextViewDepartureCity.getText().toString();
+        createRideModel.ArrivalCity = createRideActivity.createRideViewModel.autoCompleteTextViewArrivalCity.getText().toString();
+        createRideModel.Description = createRideActivity.createRideViewModel.editTextDescription.getText().toString();
+        createRideModel.DepartureCalendar = departureCalendar;
+        createRideModel.ArrivalCalendar = arrivalCalender;
+        if (CreateRideValidator.IsRideValid(createRideModel)) {
+          SetRide.createRide(createRideModel);
+        }
       }
     });
   }

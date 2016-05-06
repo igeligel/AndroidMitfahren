@@ -1,4 +1,4 @@
-package com.leon.mitfahren;
+package com.leon.data.database;
 
 import android.provider.BaseColumns;
 
