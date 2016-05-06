@@ -26,4 +26,8 @@ public final class RidesRepository {
     newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, content);
     Log.d("New Row Id:", Long.toString(newRowId));
   }
+
+  public static void SearchRides() {
+
+  }
 }
