@@ -5,16 +5,17 @@
                 android:background="#f9fbff">
 
     <RelativeLayout
+        android:id="@+id/searchRelativeLayoutPlaceholder"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/dummyLayout">
+        android:layout_height="0dp">
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/searchField"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchField">
+        android:layout_height="wrap_content">
+
         <RelativeLayout
             android:id="@+id/relativeLayoutCreateDeparture"
             android:layout_width="match_parent"
@@ -37,7 +38,7 @@
                 android:textColor="@color/white"/>
 
             <AutoCompleteTextView
-                android:id="@+id/searchTextVon"
+                android:id="@+id/searchAutoCompleteTextViewDepartureCity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/textViewDepartureCity"
@@ -68,7 +69,7 @@
                 android:textColor="@color/white"/>
 
             <AutoCompleteTextView
-                android:id="@+id/searchTextNach"
+                android:id="@+id/searchAutoCompleteTextViewArrivalCity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/textViewArrivalCity"
@@ -87,7 +88,7 @@
             android:background="@color/colorBackgroundBlue">
 
             <Button
-                android:id="@+id/buttonDatum"
+                android:id="@+id/searchButtonDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -98,7 +99,7 @@
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/buttonZeit"
+                android:id="@+id/searchButtonTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -108,14 +109,10 @@
                 android:text="Zeit"
                 android:textColor="@color/white"/>
         </LinearLayout>
-
     </RelativeLayout>
 
-
-
-
     <Button
-        android:id="@+id/buttonSuchen"
+        android:id="@+id/searchButtonSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/searchField"
@@ -128,9 +125,9 @@
         android:textColor="@color/white"/>
 
     <ExpandableListView
-        android:id="@+id/lvExp"
+        android:id="@+id/searchExpandableListViewRideList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:groupIndicator="@null"
-        android:layout_below="@+id/buttonSuchen"/>
+        android:layout_below="@+id/searchButtonSearch"
+        android:groupIndicator="@null"/>
 </RelativeLayout>

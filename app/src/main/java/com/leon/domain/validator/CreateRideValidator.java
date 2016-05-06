@@ -8,7 +8,7 @@ import java.util.Calendar;
  * Created by Kevin on 05/06/2016.
  */
 public final class CreateRideValidator {
-  public static boolean IsRideValid(CreateRideModel createRideModel) {
+  public static boolean IsModelValid(CreateRideModel createRideModel) {
     if (createRideModel.Description.length() == 0) {
       return false;
     }

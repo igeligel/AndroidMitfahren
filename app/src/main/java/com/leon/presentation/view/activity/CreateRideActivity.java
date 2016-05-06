@@ -27,7 +27,7 @@ public class CreateRideActivity extends BaseActivity {
     setContentView(R.layout.create);
 
     CreateRidePresenter createRidePresenter = new CreateRidePresenter(this);
-    createRideViewModel = createRidePresenter.getCreateRideViewModel();
+    createRideViewModel = createRidePresenter.createRideViewModel;
     createRideViewModel.arrivalCalender = Calendar.getInstance();
     createRideViewModel.departureCalendar = Calendar.getInstance();
     CreateRideListeners createRideListeners = new CreateRideListeners(this);
@@ -46,17 +46,23 @@ public class CreateRideActivity extends BaseActivity {
     switch (item.getItemId()) {
       case R.id.search:
         Intent searchIntent = new Intent(this, MainActivity.class);
-        searchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        searchIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(searchIntent);
         finish();
         return true;
       case R.id.create:
         Intent createIntent = new Intent(this, Create.class);
-        createIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        createIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(createIntent);
         finish();
         return true;
       case R.id.createNew:
+        return true;
+      case R.id.searchNew:
+        Intent newSearchIntent = new Intent(this, SearchRideActivity.class);
+        newSearchIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(newSearchIntent);
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

@@ -37,6 +37,7 @@ import com.leon.data.database.FeedReaderDbHelper;
 import com.leon.models.Ride;
 import com.leon.models.SearchType;
 import com.leon.presentation.view.activity.CreateRideActivity;
+import com.leon.presentation.view.activity.SearchRideActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -73,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
     // Get UI Elements.
     searchField = (RelativeLayout) findViewById(R.id.searchField);
-    editTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
-    editTextNach = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
-    dateButton = (Button) findViewById(R.id.buttonDatum);
-    timeButton = (Button) findViewById(R.id.buttonZeit);
-    searchButton = (Button) findViewById(R.id.buttonSuchen);
-    expListView = (ExpandableListView) findViewById(R.id.lvExp);
+    editTextVon = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewDepartureCity);
+    editTextNach = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewArrivalCity);
+    dateButton = (Button) findViewById(R.id.searchButtonDate);
+    timeButton = (Button) findViewById(R.id.searchButtonTime);
+    searchButton = (Button) findViewById(R.id.searchButtonSearch);
+    expListView = (ExpandableListView) findViewById(R.id.searchExpandableListViewRideList);
 
     // Create List of our AutoCompleteTextView's.
     ArrayList<AutoCompleteTextView> autoCompleteTextViews = new ArrayList<>();
@@ -132,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent1 = new Intent(this, CreateRideActivity.class);
         intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent1);
+        finish();
+        return true;
+      case R.id.searchNew:
+        Intent newSearchIntent = new Intent(this, SearchRideActivity.class);
+        newSearchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(newSearchIntent);
         finish();
         return true;
       default:
@@ -226,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
           }
           searchEntities();
           searchField.setVisibility(View.INVISIBLE);
-          buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.dummyLayout);
+          buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.searchRelativeLayoutPlaceholder);
           searchButton.setLayoutParams(buttonLayoutParams);
           searchMode = true;
         }
@@ -347,8 +354,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void searchEntities() {
-    AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
-    AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
+    AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewDepartureCity);
+    AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewArrivalCity);
 
     String fromCity = searchTextVon.getText().toString();
     String toCity = searchTextTo.getText().toString();
@@ -383,8 +390,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private SearchType getSearchType() {
-    AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchTextVon);
-    AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchTextNach);
+    AutoCompleteTextView searchTextVon = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewDepartureCity);
+    AutoCompleteTextView searchTextTo = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewArrivalCity);
     int fromCity = searchTextVon.getText().length();
     int toCity = searchTextTo.getText().length();
     if (fromCity == 0 && toCity == 0) {

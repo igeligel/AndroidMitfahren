@@ -8,8 +8,9 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.leon.domain.CreateRideModel;
-import com.leon.domain.interactor.SetRide;
+import com.leon.domain.interactor.RideInteractor;
 import com.leon.domain.validator.CreateRideValidator;
+import com.leon.presentation.enums.CreateRideCalendarType;
 import com.leon.presentation.view.activity.CreateRideActivity;
 
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class CreateRideListeners implements ICreateListeners {
 
   private TimePickerDialog.OnTimeSetListener getTimePickerDialogOnTimeSetListener(
     final Calendar calendar,
-    final CalendarType calendarType) {
+    final CreateRideCalendarType createRideCalendarType) {
     TimePickerDialog.OnTimeSetListener localListener = new TimePickerDialog.OnTimeSetListener() {
       @Override
       public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -55,7 +56,7 @@ public class CreateRideListeners implements ICreateListeners {
         calendar.set(Calendar.MINUTE, minute);
         String myFormat = "dd-MM-yy H:mm"; // In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        switch (calendarType) {
+        switch (createRideCalendarType) {
           case Arrival:
             createRideActivity.createRideViewModel.buttonArrival.setText(sdf.format(calendar.getTime()));
             break;
@@ -96,12 +97,12 @@ public class CreateRideListeners implements ICreateListeners {
   @Override
   public void setListeners() {
     final Calendar departureCalendar = createRideActivity.createRideViewModel.departureCalendar;
-    TimePickerDialog.OnTimeSetListener departureTimePickerSetListener = getTimePickerDialogOnTimeSetListener(departureCalendar, CalendarType.Departure);
+    final TimePickerDialog.OnTimeSetListener departureTimePickerSetListener = getTimePickerDialogOnTimeSetListener(departureCalendar, CreateRideCalendarType.Departure);
     DatePickerDialog.OnDateSetListener departureDatePickerDialogDateSetListener = getDatePickerDialogOnDateSetListener(departureCalendar, departureTimePickerSetListener);
     createRideActivity.createRideViewModel.buttonDeparture.setOnClickListener(getDatePickerDialogOnClickListener(departureDatePickerDialogDateSetListener));
 
     final Calendar arrivalCalender = createRideActivity.createRideViewModel.arrivalCalender;
-    TimePickerDialog.OnTimeSetListener arrivalTimePickerSetListener = getTimePickerDialogOnTimeSetListener(arrivalCalender, CalendarType.Arrival);
+    TimePickerDialog.OnTimeSetListener arrivalTimePickerSetListener = getTimePickerDialogOnTimeSetListener(arrivalCalender, CreateRideCalendarType.Arrival);
     DatePickerDialog.OnDateSetListener arrivalDatePickerDateSetListener = getDatePickerDialogOnDateSetListener(arrivalCalender, arrivalTimePickerSetListener);
     createRideActivity.createRideViewModel.buttonArrival.setOnClickListener(getDatePickerDialogOnClickListener(arrivalDatePickerDateSetListener));
 
@@ -114,9 +115,7 @@ public class CreateRideListeners implements ICreateListeners {
         createRideModel.Description = createRideActivity.createRideViewModel.editTextDescription.getText().toString();
         createRideModel.DepartureCalendar = departureCalendar;
         createRideModel.ArrivalCalendar = arrivalCalender;
-        if (CreateRideValidator.IsRideValid(createRideModel)) {
-          SetRide.createRide(createRideModel);
-        }
+        RideInteractor.createRide(createRideModel);
       }
     });
   }

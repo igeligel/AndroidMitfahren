@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 /**
  * Created by Kevin on 05/05/2016.
@@ -24,5 +26,9 @@ public class BasePresenter {
 
   protected EditText getEditTextById(int elementId) {
     return (EditText) activity.findViewById(elementId);
+  }
+
+  protected ExpandableListView getExpandableListViewById(int elementId) {
+    return (ExpandableListView) activity.findViewById(elementId);
   }
 }
