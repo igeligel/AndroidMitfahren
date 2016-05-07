@@ -1,4 +1,4 @@
-package com.leon.models;
+package com.leon.domain.models;
 
 /**
  * Created by Leon on 02.05.16.

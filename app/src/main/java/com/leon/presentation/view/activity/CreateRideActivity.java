@@ -29,7 +29,6 @@ public class CreateRideActivity extends BaseActivity {
     createRideViewModel.arrivalCalender = Calendar.getInstance();
     createRideViewModel.departureCalendar = Calendar.getInstance();
     CreateRideListeners createRideListeners = new CreateRideListeners(this);
-
   }
 
   @Override

@@ -9,7 +9,7 @@ import com.leon.data.database.Database;
 import com.leon.data.database.FeedReaderContract;
 import com.leon.data.database.FeedReaderDbHelper;
 import com.leon.data.entity.Ride;
-import com.leon.models.SearchType;
+import com.leon.domain.models.SearchType;
 
 import java.util.ArrayList;
 
@@ -36,6 +36,7 @@ public final class RidesRepository {
     String[] projection = getSearchProjection();
     String sortOrder = getSortOrder();
     String selection;
+    Log.d("Search Type", searchType.name());
     switch (searchType) {
       case BothCities:
         selection = getSearchSelection(startPoint,endPoint, departureTime);

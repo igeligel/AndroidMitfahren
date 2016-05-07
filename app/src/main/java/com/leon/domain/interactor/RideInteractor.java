@@ -1,19 +1,14 @@
 package com.leon.domain.interactor;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.leon.data.entity.Ride;
 import com.leon.data.repository.RidesRepository;
 import com.leon.domain.CreateRideModel;
-import com.leon.data.entity.*;
 import com.leon.domain.SearchRideModel;
 import com.leon.domain.validator.CreateRideValidator;
 import com.leon.domain.validator.SearchRideValidator;
-import com.leon.models.*;
+import com.leon.domain.models.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kevin on 05/06/2016.
@@ -43,7 +38,21 @@ public final class RideInteractor {
     ArrayList<Ride> rides = RidesRepository.SearchRides(searchRideModel.DepartureCity,
       searchRideModel.ArrivalCity,
       departureTime,
-      SearchType.BothCities);
+      getSearchTypeBySearchRideModel(searchRideModel));
     return rides;
+  }
+
+  private static SearchType getSearchTypeBySearchRideModel(SearchRideModel searchRideModel) {
+    if (searchRideModel.ArrivalCity.length() == 0 && searchRideModel.DepartureCity.length() == 0) {
+      return SearchType.NoCity;
+    }
+    if (searchRideModel.ArrivalCity.length() == 0) {
+      return SearchType.JustDepartueCity;
+    }
+    if (searchRideModel.DepartureCity.length() == 0) {
+      return SearchType.JustArrivalCity;
+    }
+    return SearchType.BothCities;
+
   }
 }
