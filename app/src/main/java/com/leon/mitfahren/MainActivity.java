@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,8 +37,10 @@ import com.leon.data.database.FeedReaderContract.FeedEntry;
 import com.leon.data.database.FeedReaderDbHelper;
 import com.leon.models.Ride;
 import com.leon.models.SearchType;
+import com.leon.presentation.presenter.ToastPresenter;
 import com.leon.presentation.view.activity.CreateRideActivity;
 import com.leon.presentation.view.activity.SearchRideActivity;
+import com.leon.presentation.view.adapter.ExpandableListAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.search);
 
     // Get UI Elements.
-    searchField = (RelativeLayout) findViewById(R.id.searchField);
+    searchField = (RelativeLayout) findViewById(R.id.searchRelativeLayoutSearchField);
     editTextVon = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewDepartureCity);
     editTextNach = (AutoCompleteTextView) findViewById(R.id.searchAutoCompleteTextViewArrivalCity);
     dateButton = (Button) findViewById(R.id.searchButtonDate);
@@ -221,14 +224,14 @@ public class MainActivity extends AppCompatActivity {
         if (searchMode == true) {
           // We need to change the layout and delete the list from entries.
           searchField.setVisibility(View.VISIBLE);
-          buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.searchField);
+          buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.searchRelativeLayoutSearchField);
           searchButton.setLayoutParams(buttonLayoutParams);
           clearExpandableListView();
           searchMode = false;
         } else {
           // Load the list of entries and set the search field invisible.
           if (getSearchType() == SearchType.NoCity) {
-            ToastManager.makeToast("Keine Stadt angegeben", getApplicationContext());
+            ToastPresenter.makeToast("Keine Stadt angegeben", getApplicationContext());
             return;
           }
           searchEntities();
@@ -316,7 +319,8 @@ public class MainActivity extends AppCompatActivity {
         selection = getSearchSelection(startPoint, endPoint, departureTime);
         break;
     }
-
+    Log.d("Projektion", projection.toString());
+    Log.d("Selektion", selection);
     // Execute Query;
     Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, selection, null, null, null, sortOrder);
 
@@ -364,10 +368,10 @@ public class MainActivity extends AppCompatActivity {
     SearchType searchType = getSearchType();
     switch (searchType) {
       case JustDepartueCity:
-        ToastManager.makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten von " + fromCity + "angegeben", getApplicationContext());
+        ToastPresenter.makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten von " + fromCity + "angegeben", getApplicationContext());
         break;
       case JustArrivalCity:
-        ToastManager.makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten zu " + toCity + "angegeben", getApplicationContext());
+        ToastPresenter.makeToast("Keine Ankunftsstadt ausgegeben \n" + "Es werden alle Fahrten zu " + toCity + "angegeben", getApplicationContext());
         break;
       default:
         break;

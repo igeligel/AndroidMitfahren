@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 import com.leon.data.database.FeedReaderContract;
 import com.leon.data.database.FeedReaderDbHelper;
 import com.leon.models.Ride;
+import com.leon.presentation.presenter.ToastPresenter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -219,33 +220,33 @@ public class Create extends AppCompatActivity {
     long newRowId;
     SQLiteDatabase db = feedReaderDbHelper.getWritableDatabase();
     newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, content);
-    ToastManager.makeToast("Fahrt mit der Id #" + newRowId + " erstellt.", getApplicationContext());
+    ToastPresenter.makeToast("Fahrt mit der Id #" + newRowId + " erstellt.", getApplicationContext());
     return newRowId;
   }
 
   private boolean createParametersValid(Ride ride) {
     if (ride.DepartureCity.length() == 0) {
-      ToastManager.makeToast("Keine Abfahrtsstadt angegeben.", getApplicationContext());
+      ToastPresenter.makeToast("Keine Abfahrtsstadt angegeben.", getApplicationContext());
       return false;
     }
     if (ride.ArrivalCity.length() == 0) {
-      ToastManager.makeToast("Keine Ankunftsstadt angegeben.", getApplicationContext());
+      ToastPresenter.makeToast("Keine Ankunftsstadt angegeben.", getApplicationContext());
       return false;
     }
     if (ride.DepartureTime < (System.currentTimeMillis()/1000)) {
-      ToastManager.makeToast("Abfahrtszeit ist ungültig.", getApplicationContext());
+      ToastPresenter.makeToast("Abfahrtszeit ist ungültig.", getApplicationContext());
       return false;
     }
     if (ride.ArrivalTime < (System.currentTimeMillis()/1000)) {
-      ToastManager.makeToast("Ankunftszeit ist ungültig.", getApplicationContext());
+      ToastPresenter.makeToast("Ankunftszeit ist ungültig.", getApplicationContext());
       return false;
     }
     if (ride.Description == "") {
-      ToastManager.makeToast("Keine Beschreibung angegeben.", getApplicationContext());
+      ToastPresenter.makeToast("Keine Beschreibung angegeben.", getApplicationContext());
       return false;
     }
     if (ride.ArrivalTime <= ride.DepartureTime) {
-      ToastManager.makeToast("Die Ankunftszeit kann nicht vor der Abfahrtszeit liegen.", getApplicationContext());
+      ToastPresenter.makeToast("Die Ankunftszeit kann nicht vor der Abfahrtszeit liegen.", getApplicationContext());
       return false;
     }
     return true;

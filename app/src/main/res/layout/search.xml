@@ -12,7 +12,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/searchField"
+        android:id="@+id/searchRelativeLayoutSearchField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -115,7 +115,7 @@
         android:id="@+id/searchButtonSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchField"
+        android:layout_below="@+id/searchRelativeLayoutSearchField"
         android:layout_centerInParent="true"
         android:layout_weight="1"
         android:background="@color/orange"

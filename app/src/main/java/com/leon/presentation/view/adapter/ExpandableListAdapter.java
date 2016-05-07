@@ -1,4 +1,4 @@
-package com.leon.mitfahren;
+package com.leon.presentation.view.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.leon.mitfahren.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +23,7 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
   private Context _context;
-  private List<String> _listDataHeader; // header titles
-  // child data in format of header title, child title
+  private List<String> _listDataHeader;
   private HashMap<String, List<String>> _listDataChild;
 
   public ExpandableListAdapter(Context context, List<String> listDataHeader,

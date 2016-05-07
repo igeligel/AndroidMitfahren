@@ -3,6 +3,7 @@ package com.leon.presentation.presenter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 
 import com.leon.mitfahren.R;
 import com.leon.presentation.view.activity.SearchRideActivity;
@@ -29,6 +30,8 @@ public class SearchRidePresenter extends BasePresenter{
     searchRideViewModel.buttonTime = getButtonTime();
     searchRideViewModel.buttonSearchRide = getButtonSearchRide();
     searchRideViewModel.expandableListViewForRides = getExpandableListViewForRides();
+    searchRideViewModel.searchField = getRelativeLayoutSearchField();
+    searchRideViewModel.ResultViewMode = false;
     setAutoComplete();
     setAdapters();
   }
@@ -55,6 +58,10 @@ public class SearchRidePresenter extends BasePresenter{
 
   private ExpandableListView getExpandableListViewForRides() {
     return getExpandableListViewById(R.id.searchExpandableListViewRideList);
+  }
+
+  private RelativeLayout getRelativeLayoutSearchField() {
+    return getRelativeLayoutById(R.id.searchRelativeLayoutSearchField);
   }
 
   private void setAdapters() {

@@ -1,5 +1,6 @@
 package com.leon.domain.interactor;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.leon.data.entity.Ride;
@@ -33,10 +34,16 @@ public final class RideInteractor {
     RidesRepository.InsertOrUpdateRide(ride);
   }
 
-  public static List<Ride> getRides(SearchRideModel searchRideModel) {
+  public static ArrayList<Ride> getRides(SearchRideModel searchRideModel) {
+
     if (!SearchRideValidator.IsModelValid(searchRideModel)) {
-      return null;
+      return new ArrayList<>();
     }
-    return new ArrayList<>();
+    long departureTime = searchRideModel.Calendar.getTimeInMillis() / 1000;
+    ArrayList<Ride> rides = RidesRepository.SearchRides(searchRideModel.DepartureCity,
+      searchRideModel.ArrivalCity,
+      departureTime,
+      SearchType.BothCities);
+    return rides;
   }
 }

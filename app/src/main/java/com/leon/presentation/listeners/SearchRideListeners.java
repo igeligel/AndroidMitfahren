@@ -2,19 +2,25 @@ package com.leon.presentation.listeners;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
 import com.leon.data.entity.Ride;
 import com.leon.domain.SearchRideModel;
 import com.leon.domain.interactor.RideInteractor;
-import com.leon.presentation.enums.SearchRideCalendarType;
+import com.leon.presentation.view.activity.CreateRideActivity;
+import com.leon.presentation.view.adapter.ExpandableListAdapter;
+import com.leon.mitfahren.R;
 import com.leon.presentation.view.activity.SearchRideActivity;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,6 +30,11 @@ import java.util.Locale;
 public class SearchRideListeners implements ICreateListeners {
 
   private SearchRideActivity searchRideActivity;
+  ExpandableListAdapter listAdapter;
+
+  List<String> listDataHeader;
+  HashMap<String, List<String>> listDataChild;
+
 
   public SearchRideListeners(SearchRideActivity searchRideActivity) {
     this.searchRideActivity = searchRideActivity;
@@ -105,13 +116,71 @@ public class SearchRideListeners implements ICreateListeners {
     searchRideActivity.searchRideViewModel.buttonSearchRide.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        long timestamp = searchRideActivity.searchRideViewModel.searchCalender.getTimeInMillis();
         SearchRideModel searchRideModel = new SearchRideModel();
         searchRideModel.DepartureCity = searchRideActivity.searchRideViewModel.autoCompleteTextViewDepartureCity.getText().toString();
         searchRideModel.ArrivalCity = searchRideActivity.searchRideViewModel.autoCompleteTextViewArrivalCity.getText().toString();
         searchRideModel.Calendar = searchRideActivity.searchRideViewModel.searchCalender;
-        List<Ride> rides = RideInteractor.getRides(searchRideModel);
+        ArrayList<Ride> rides = RideInteractor.getRides(searchRideModel);
+        if (rides.size() == 0) {
+          // TODO: Toast found 0 rides.
+          return;
+        }
+        // TOGGLE VIEW STATE
+        updateExpByRides(rides);
+        toogleViewState();
       }
     });
+  }
+
+  private void toogleViewState() {
+    RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) searchRideActivity.searchRideViewModel.buttonSearchRide.getLayoutParams();
+    // Check for search mode.
+    if (searchRideActivity.searchRideViewModel.ResultViewMode == true) {
+      searchRideActivity.searchRideViewModel.searchField.setVisibility(View.VISIBLE);
+      buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.searchRelativeLayoutSearchField);
+      searchRideActivity.searchRideViewModel.buttonSearchRide.setLayoutParams(buttonLayoutParams);
+      clearExpandableListView();
+      searchRideActivity.searchRideViewModel.ResultViewMode = false;
+    } else {
+      searchRideActivity.searchRideViewModel.searchField.setVisibility(View.INVISIBLE);
+      buttonLayoutParams.addRule(RelativeLayout.BELOW, R.id.searchRelativeLayoutPlaceholder);
+      searchRideActivity.searchRideViewModel.buttonSearchRide.setLayoutParams(buttonLayoutParams);
+      searchRideActivity.searchRideViewModel.ResultViewMode = true;
+    }
+  }
+
+  private void clearExpandableListView() {
+    if (listDataHeader == null || listDataChild == null)
+      return;
+    listDataHeader.clear();
+    listDataChild.clear();
+    listAdapter = new ExpandableListAdapter(searchRideActivity, listDataHeader, listDataChild);
+    searchRideActivity.searchRideViewModel.expandableListViewForRides.setAdapter(listAdapter);
+  }
+
+  private void updateExpByRides(ArrayList<Ride> ridesForSelection) {
+    listDataHeader = new ArrayList<>();
+    listDataChild = new HashMap<>();
+    for (Ride ride : ridesForSelection) {
+      List<String> informations = createInformations(ride);
+      String header = Integer.toString(ride.Id);
+      listDataHeader.add(header);
+      listDataChild.put(header, informations);
+    }
+    listAdapter = new ExpandableListAdapter(searchRideActivity, listDataHeader, listDataChild);
+    searchRideActivity.searchRideViewModel.expandableListViewForRides.setAdapter(listAdapter);
+  }
+
+  private List<String> createInformations(Ride ride) {
+    List<String> informations = new ArrayList<>();
+    Date departureDate = new Date(ride.DepartureTimestamp * 1000);
+    Date arrivalDate = new Date(ride.ArrivalTimestamp * 1000);
+    informations.add(ride.DepartureCity);
+    informations.add(ride.ArrivalCity);
+    DateFormat df = new SimpleDateFormat("H:mm");
+    informations.add(df.format(departureDate));
+    informations.add(df.format(arrivalDate));
+    informations.add(ride.Description);
+    return informations;
   }
 }

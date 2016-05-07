@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 /**
  * Created by Kevin on 05/05/2016.
@@ -30,5 +31,9 @@ public class BasePresenter {
 
   protected ExpandableListView getExpandableListViewById(int elementId) {
     return (ExpandableListView) activity.findViewById(elementId);
+  }
+
+  protected RelativeLayout getRelativeLayoutById(int elementId) {
+    return (RelativeLayout) activity.findViewById(elementId);
   }
 }

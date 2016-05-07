@@ -4,6 +4,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 
 import java.util.Calendar;
 
@@ -11,6 +12,7 @@ import java.util.Calendar;
  * Created by Kevin on 05/06/2016.
  */
 public class SearchRideViewModel {
+  public RelativeLayout searchField;
   public AutoCompleteTextView autoCompleteTextViewDepartureCity;
   public AutoCompleteTextView autoCompleteTextViewArrivalCity;
 
