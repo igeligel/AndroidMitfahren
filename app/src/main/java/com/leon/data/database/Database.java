@@ -2,8 +2,6 @@ package com.leon.data.database;
 
 import android.content.Context;
 
-import com.leon.mitfahren.MainActivity;
-
 /**
  * Created by Kevin on 05/06/2016.
  */

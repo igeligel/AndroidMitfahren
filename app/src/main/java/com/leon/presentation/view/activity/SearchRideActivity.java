@@ -6,8 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.leon.mitfahren.Create;
-import com.leon.mitfahren.MainActivity;
+import com.leon.data.database.Database;
 import com.leon.mitfahren.R;
 import com.leon.presentation.listeners.SearchRideListeners;
 import com.leon.presentation.presenter.SearchRidePresenter;
@@ -24,6 +23,7 @@ public class SearchRideActivity extends BaseActivity {
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Database.getInstance().SetApplicationContext(this);
     setContentView(R.layout.search);
 
     SearchRidePresenter createRidePresenter = new SearchRidePresenter(this);
@@ -43,18 +43,6 @@ public class SearchRideActivity extends BaseActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.search:
-        Intent searchIntent = new Intent(this, MainActivity.class);
-        searchIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(searchIntent);
-        finish();
-        return true;
-      case R.id.create:
-        Intent createIntent = new Intent(this, Create.class);
-        createIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(createIntent);
-        finish();
-        return true;
       case R.id.createNew:
         Intent newCreateIntent = new Intent(this, CreateRideActivity.class);
         newCreateIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

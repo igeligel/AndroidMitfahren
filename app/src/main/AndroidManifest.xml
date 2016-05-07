@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.leon.presentation.view.activity.SearchRideActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -17,10 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Create">
-        </activity>
         <activity android:name="com.leon.presentation.view.activity.CreateRideActivity"></activity>
-        <activity android:name="com.leon.presentation.view.activity.SearchRideActivity"></activity>
+
     </application>
 
 </manifest>

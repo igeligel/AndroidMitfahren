@@ -6,8 +6,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.leon.mitfahren.Create;
-import com.leon.mitfahren.MainActivity;
 import com.leon.mitfahren.R;
 import com.leon.presentation.listeners.CreateRideListeners;
 import com.leon.presentation.presenter.CreateRidePresenter;
@@ -44,18 +42,6 @@ public class CreateRideActivity extends BaseActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.search:
-        Intent searchIntent = new Intent(this, MainActivity.class);
-        searchIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(searchIntent);
-        finish();
-        return true;
-      case R.id.create:
-        Intent createIntent = new Intent(this, Create.class);
-        createIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(createIntent);
-        finish();
-        return true;
       case R.id.createNew:
         return true;
       case R.id.searchNew:
