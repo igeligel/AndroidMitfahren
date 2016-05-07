@@ -15,8 +15,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
 
   private static final String TEXT_TYPE = " TEXT";
-  private static final String INTEGER_TYPE = " INTEGER";
-  private static final String BIGINTEGERT_TYPE = " BIGINTEGER";
+  private static final String BIGINTEGER_TYPE = " BIGINTEGER";
   private static final String COMMA_SEP = ",";
   private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FeedReaderContract.FeedEntry.TABLE_NAME + " ("
@@ -24,8 +23,8 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
               + " INTEGER PRIMARY KEY AUTOINCREMENT,"
               + FeedReaderContract.FeedEntry.COLUMN_NAME_FROM + TEXT_TYPE + COMMA_SEP
               + FeedReaderContract.FeedEntry.COLUMN_NAME_TO + TEXT_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE + BIGINTEGERT_TYPE + COMMA_SEP
-              + FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL + BIGINTEGERT_TYPE + COMMA_SEP
+              + FeedReaderContract.FeedEntry.COLUMN_NAME_DEPARTURE + BIGINTEGER_TYPE + COMMA_SEP
+              + FeedReaderContract.FeedEntry.COLUMN_NAME_ARRIVAL + BIGINTEGER_TYPE + COMMA_SEP
               + FeedReaderContract.FeedEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE
               + " );";
 
