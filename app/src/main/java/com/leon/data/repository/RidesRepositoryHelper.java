@@ -87,6 +87,7 @@ final class RidesRepositoryHelper {
 
   /**
    * Returns the standard time buffer.
+   * The Timebuffer is 6 hours long.
    * @return The value of the time buffer as unix timespan.
    */
   private static long getTimeBuffer() {

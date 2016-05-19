@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.leon.data.entity.Ride;
 import com.leon.domain.SearchRideModel;
@@ -122,7 +123,9 @@ public class SearchRideListeners implements ICreateListeners {
         searchRideModel.Calendar = searchRideActivity.searchRideViewModel.searchCalender;
         ArrayList<Ride> rides = RideInteractor.getRides(searchRideModel);
         if (rides.size() == 0) {
-          // TODO: Toast found 0 rides.
+          String foundNoride = "Keine Fahrt gefunden";
+          Toast toast = Toast.makeText(v.getContext(), foundNoride, Toast.LENGTH_SHORT);
+          toast.show();
           return;
         }
         // TOGGLE VIEW STATE
