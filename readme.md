@@ -7,26 +7,26 @@ This is an app created in the course "Android" of the Ostfalia Hochschule für a
 2. Build the project with gradlew or open it with Android Studio.
 
 ## Table of Content
-1. **[General Architecture](#General Architecture)**
-2. **[Data Layer](#Data Layer)**
- * **[Database package](#Database package)**
- * **[Entity package](#Entity package)**
- * **[Repository package](#Repository package)**
-3. **[Domain Layer](#Domain Layer)**
- * **[Interactor Package](#Interactor Package)**
- * **[Models package](#Models package)**
- * **[Validator package](#Validator package)**
-4. **[Presentation Layer](#Presentation Layer)**
- * **[Basic overview](#Basic overview)**
- * **[Enums package](#Enums package)**
- * **[Listeners package](#Listeners package)**
- * **[Presenter package](#Presenter package)**
- * **[View package](#View package)**
-    * **[Activity package](#Activity package)**
-    * **[Adapter package](#Adapter package)**
-    * **[Model package](#Model package)**
-5. **[Contribution](#Contribution)**
-6. **[License](#License)**
+1. **[General Architecture](#general-architecture)**
+2. **[Data Layer](#data-layer)**
+ * **[Database package](#database-package)**
+ * **[Entity package](#entity-package)**
+ * **[Repository package](#repository-package)**
+3. **[Domain Layer](#domain-layer)**
+ * **[Interactor Package](#interactor-Package)**
+ * **[Models package](#Models-package)**
+ * **[Validator package](#validator-package)**
+4. **[Presentation Layer](#presentation-Layer)**
+ * **[Basic overview](#basic-overview)**
+ * **[Enums package](#enums-package)**
+ * **[Listeners package](#listeners-package)**
+ * **[Presenter package](#presenter-package)**
+ * **[View package](#view-package)**
+    * **[Activity package](#activity-package)**
+    * **[Adapter package](#adapter-package)**
+    * **[Model package](#model-package)**
+5. **[Contribution](#contribution)**
+6. **[License](#license)**
 
 ## General Architecture
 ![alt text](documentation/main-architecture.png "General Architecture")
@@ -61,7 +61,7 @@ The database package contains all the required code for working with the local d
 ### Entity package
 Then we have created the entity package which contains the entities **of the database**. Currently we only have one entity which is Ride.
 
-![alt text](documentation/ride.png "Ride Entity")
+![alt text](documentation/ride-entity.png "Ride Entity")
 
 ### Repository package
 We also have a repository package which is a basic repository and let you easily exchange the persistence component behind the data layer. With this repository pattern it is super easy to change the system to an actual REST api.
