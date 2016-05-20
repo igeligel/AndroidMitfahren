@@ -56,10 +56,10 @@ public class CreateRideListeners implements ICreateListeners {
         String myFormat = "dd-MM-yy H:mm"; // In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         switch (createRideCalendarType) {
-          case Arrival:
+          case ARRIVAL:
             createRideActivity.createRideViewModel.buttonArrival.setText(sdf.format(calendar.getTime()));
             break;
-          case Departure:
+          case DEPARTURE:
             createRideActivity.createRideViewModel.buttonDeparture.setText(sdf.format(calendar.getTime()));
             break;
           default:
@@ -96,12 +96,12 @@ public class CreateRideListeners implements ICreateListeners {
   @Override
   public void setListeners() {
     final Calendar departureCalendar = createRideActivity.createRideViewModel.departureCalendar;
-    final TimePickerDialog.OnTimeSetListener departureTimePickerSetListener = getTimePickerDialogOnTimeSetListener(departureCalendar, CreateRideCalendarType.Departure);
+    final TimePickerDialog.OnTimeSetListener departureTimePickerSetListener = getTimePickerDialogOnTimeSetListener(departureCalendar, CreateRideCalendarType.DEPARTURE);
     DatePickerDialog.OnDateSetListener departureDatePickerDialogDateSetListener = getDatePickerDialogOnDateSetListener(departureCalendar, departureTimePickerSetListener);
     createRideActivity.createRideViewModel.buttonDeparture.setOnClickListener(getDatePickerDialogOnClickListener(departureDatePickerDialogDateSetListener));
 
     final Calendar arrivalCalender = createRideActivity.createRideViewModel.arrivalCalender;
-    TimePickerDialog.OnTimeSetListener arrivalTimePickerSetListener = getTimePickerDialogOnTimeSetListener(arrivalCalender, CreateRideCalendarType.Arrival);
+    TimePickerDialog.OnTimeSetListener arrivalTimePickerSetListener = getTimePickerDialogOnTimeSetListener(arrivalCalender, CreateRideCalendarType.ARRIVAL);
     DatePickerDialog.OnDateSetListener arrivalDatePickerDateSetListener = getDatePickerDialogOnDateSetListener(arrivalCalender, arrivalTimePickerSetListener);
     createRideActivity.createRideViewModel.buttonArrival.setOnClickListener(getDatePickerDialogOnClickListener(arrivalDatePickerDateSetListener));
 

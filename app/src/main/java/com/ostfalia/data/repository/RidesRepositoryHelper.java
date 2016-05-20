@@ -69,13 +69,13 @@ final class RidesRepositoryHelper {
   protected static String getSelection(String startPoint, String endPoint, long departureTime, SearchType searchType) {
     String selection;
     switch (searchType) {
-      case BothCities:
+      case BOTH_CITIES:
         selection = RidesRepositoryHelper.getDefaultSearchSelection(startPoint,endPoint, departureTime, getTimeBuffer());
         break;
-      case JustArrivalCity:
+      case JUST_ARRIVAL_CITY:
         selection = RidesRepositoryHelper.getSearchSelectionArrival(endPoint, departureTime, getTimeBuffer());
         break;
-      case JustDepartueCity:
+      case JUST_DEPARTURE_CITY:
         selection = RidesRepositoryHelper.getSearchSelectionDeparture(startPoint, departureTime, getTimeBuffer());
         break;
       default:

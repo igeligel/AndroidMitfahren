@@ -44,15 +44,15 @@ public final class RideInteractor {
 
   private static SearchType getSearchTypeBySearchRideModel(SearchRideModel searchRideModel) {
     if (searchRideModel.ArrivalCity.length() == 0 && searchRideModel.DepartureCity.length() == 0) {
-      return SearchType.NoCity;
+      return SearchType.NO_CITY;
     }
     if (searchRideModel.ArrivalCity.length() == 0) {
-      return SearchType.JustDepartueCity;
+      return SearchType.JUST_DEPARTURE_CITY;
     }
     if (searchRideModel.DepartureCity.length() == 0) {
-      return SearchType.JustArrivalCity;
+      return SearchType.JUST_ARRIVAL_CITY;
     }
-    return SearchType.BothCities;
+    return SearchType.BOTH_CITIES;
 
   }
 }
