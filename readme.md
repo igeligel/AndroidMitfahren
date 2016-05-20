@@ -61,7 +61,7 @@ The database package contains all the required code for working with the local d
 ### Entity package
 Then we have created the entity package which contains the entities **of the database**. Currently we only have one entity which is Ride.
 
-![alt text](documentation/Ride.png "Ride Entity")
+![alt text](documentation/ride.png "Ride Entity")
 
 ### Repository package
 We also have a repository package which is a basic repository and let you easily exchange the persistence component behind the data layer. With this repository pattern it is super easy to change the system to an actual REST api.
@@ -106,7 +106,7 @@ This package contains the general components of the user interface:
 - presenter
 - view
 
-![alt text](documentation/Presentation-layer-architecture.png "Data Layer")
+![alt text](documentation/presentation-layer-architecture.png "Data Layer")
 
 ### Basic overview
 This graphic will explain the user interface flow:
