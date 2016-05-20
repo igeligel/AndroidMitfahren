@@ -9,7 +9,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.ostfalia.data.entity.Ride;
-import com.ostfalia.domain.SearchRideModel;
+import com.ostfalia.domain.models.SearchRideModel;
 import com.ostfalia.domain.interactor.RideInteractor;
 import com.ostfalia.presentation.view.adapter.ExpandableListAdapter;
 import com.ostfalia.mitfahren.R;

@@ -1,6 +1,6 @@
 package com.ostfalia.domain.validator;
 
-import com.ostfalia.domain.SearchRideModel;
+import com.ostfalia.domain.models.SearchRideModel;
 
 /**
  * Created by Kevin on 05/07/2016.

@@ -1,4 +1,4 @@
-package com.ostfalia.domain;
+package com.ostfalia.domain.models;
 
 import java.util.Calendar;
 

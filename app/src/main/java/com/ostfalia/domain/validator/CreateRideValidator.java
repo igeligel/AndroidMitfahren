@@ -1,6 +1,6 @@
 package com.ostfalia.domain.validator;
 
-import com.ostfalia.domain.CreateRideModel;
+import com.ostfalia.domain.models.CreateRideModel;
 
 import java.util.Calendar;
 

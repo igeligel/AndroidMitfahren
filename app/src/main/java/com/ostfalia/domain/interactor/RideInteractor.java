@@ -2,8 +2,8 @@ package com.ostfalia.domain.interactor;
 
 import com.ostfalia.data.entity.Ride;
 import com.ostfalia.data.repository.RidesRepository;
-import com.ostfalia.domain.CreateRideModel;
-import com.ostfalia.domain.SearchRideModel;
+import com.ostfalia.domain.models.CreateRideModel;
+import com.ostfalia.domain.models.SearchRideModel;
 import com.ostfalia.domain.validator.CreateRideValidator;
 import com.ostfalia.domain.validator.SearchRideValidator;
 import com.ostfalia.domain.models.*;

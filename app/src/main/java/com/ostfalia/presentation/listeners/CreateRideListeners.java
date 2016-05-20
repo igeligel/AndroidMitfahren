@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.ostfalia.domain.CreateRideModel;
+import com.ostfalia.domain.models.CreateRideModel;
 import com.ostfalia.domain.interactor.RideInteractor;
 import com.ostfalia.presentation.enums.CreateRideCalendarType;
 import com.ostfalia.presentation.view.activity.CreateRideActivity;
