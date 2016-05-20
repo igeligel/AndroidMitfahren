@@ -1,4 +1,4 @@
-package com.leon.mitfahren;
+package com.ostfalia.mitfahren;
 
 import org.junit.Test;
 
