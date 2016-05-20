@@ -7,26 +7,26 @@ This is an app created in the course "Android" of the Ostfalia Hochschule für a
 2. Build the project with gradlew or open it with Android Studio.
 
 ## Table of Content
-1. **[General Architecture](## General Architecture)**
-2. **[Data Layer](## Data Layer)**
- * **[Database package](### Database package)**
- * **[Entity package](### Entity package)**
- * **[Repository package](### Repository package)**
-3. **[Domain Layer](## Domain Layer)**
- * **[Interactor Package](### Interactor Package)**
- * **[Models package](### Models package)**
- * **[Validator package](### Validator package)**
-4. **[Presentation Layer](## Presentation Layer)**
- * **[Basic overview](### Basic overview)**
- * **[Enums package](### Enums package)**
- * **[Listeners package](### Listeners package)**
- * **[Presenter package](### Presenter package)**
- * **[View package](### View package)**
-    * **[Activity package](#### Activity package)**
-    * **[Adapter package](#### Adapter package)**
-    * **[Model package](#### Model package)**
-5. **[Contribution](## Contribution)**
-6. **[License](##License)**
+1. **[General Architecture](#General Architecture)**
+2. **[Data Layer](#Data Layer)**
+ * **[Database package](#Database package)**
+ * **[Entity package](#Entity package)**
+ * **[Repository package](#Repository package)**
+3. **[Domain Layer](#Domain Layer)**
+ * **[Interactor Package](#Interactor Package)**
+ * **[Models package](#Models package)**
+ * **[Validator package](#Validator package)**
+4. **[Presentation Layer](#Presentation Layer)**
+ * **[Basic overview](#Basic overview)**
+ * **[Enums package](#Enums package)**
+ * **[Listeners package](#Listeners package)**
+ * **[Presenter package](#Presenter package)**
+ * **[View package](#View package)**
+    * **[Activity package](#Activity package)**
+    * **[Adapter package](#Adapter package)**
+    * **[Model package](#Model package)**
+5. **[Contribution](#Contribution)**
+6. **[License](#License)**
 
 ## General Architecture
 ![alt text](documentation/main-architecture.png "General Architecture")
