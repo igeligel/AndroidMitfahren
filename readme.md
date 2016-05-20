@@ -7,13 +7,26 @@ This is an app created in the course "Android" of the Ostfalia Hochschule für a
 2. Build the project with gradlew or open it with Android Studio.
 
 ## Table of Content
-1. **[General Architecture](#General Architecture)**
+1. **[General Architecture](## General Architecture)**
 2. **[Data Layer](## Data Layer)**
-⋅⋅1. **[Database package](### Database package)**
-⋅⋅2. **[Entity package](### Entity package)**
-⋅⋅3. **[Repository package](### Repository package)**
-
-
+ * **[Database package](### Database package)**
+ * **[Entity package](### Entity package)**
+ * **[Repository package](### Repository package)**
+3. **[Domain Layer](## Domain Layer)**
+ * **[Interactor Package](### Interactor Package)**
+ * **[Models package](### Models package)**
+ * **[Validator package](### Validator package)**
+4. **[Presentation Layer](## Presentation Layer)**
+ * **[Basic overview](### Basic overview)**
+ * **[Enums package](### Enums package)**
+ * **[Listeners package](### Listeners package)**
+ * **[Presenter package](### Presenter package)**
+ * **[View package](### View package)**
+    * **[Activity package](#### Activity package)**
+    * **[Adapter package](#### Adapter package)**
+    * **[Model package](#### Model package)**
+5. **[Contribution](## Contribution)**
+6. **[License](##License)**
 
 ## General Architecture
 ![alt text](documentation/main-architecture.png "General Architecture")
@@ -24,7 +37,6 @@ As you can see we have divided the application in three layers:
 - Presentation Layer
 
 We also have a dependency rule. It goes from the outside to the inner core of the application which is the data layer. This is really important to structure the logic and to encapsulate data.
-
 
 ## Data Layer
 The data layer is the lowest layer of the application. It is handling all raw data operations like:
@@ -61,7 +73,6 @@ The repository needs to implement an interface which contains these methods:
 You can find more information of the repository in the javadoc.
 
 ## Domain Layer
-
 The domain layer contains all the business logic of the application. It has a dependency on the data layer but not on the presentation layer so it should not access instances or other classes, methods, variables of the presentation layer.
 The dependency to the data layer is just there to give access to the data. The data will be provided by the repository which was declared earlier.
 
@@ -73,10 +84,67 @@ The domain layer contains three packages:
 - Validator package
 
 ### Interactor Package
+The interactor package contains the interactor for the repository patttern of the data layer. This should be the only class which should have a dependency on the data layer.
+
+### Models package
+This package contains the models used in the business logic. These models are:
+- CreateRideModel
+- SearchRideModel
+- SearchType
+
+![alt text](documentation/models-package-classes.png "Models")
+
+These classes are used to create or search rides. The SearchType is required by other classes.
+
+### Validator package
+This package just has basic classes which validates the models of the business logic.
 
 ## Presentation Layer
+This package contains the general components of the user interface:
+- enums
+- listeners
+- presenter
+- view
 
 ![alt text](documentation/Presentation-layer-architecture.png "Data Layer")
+
+### Basic overview
+This graphic will explain the user interface flow:
+
+![alt text](documentation/create-gui-flow.png "Create UI")
+
+You can see that we got a view model and the listener in the end. Both are bound together indirectly because the listener needs to take an activity, which will converted to a view model, or the view model directly. So you just have the listeners to handle events.
+
+### Enums package
+This package is just a helper package for selecting specific modes of creating and searching rides.
+
+### Listeners package
+These are the listeners for the ui component. Each activity should have a listener which implements the basic Interface ICreateListeners, so you definitely set up listeners for an activity. These are important because they can change the view model of the activity.
+
+### Presenter package
+We have different presenters. A presenter is a simple user interface manager. Each activity has one presenter which creates the view model for the activity. This is important because we can then easily extract data out of the view model and do not have unneccessary data. Another good encapsulation strategy.
+
+Presenters can also be unbound presenters which are used over many listeners to increase functionality.
+
+### View package
+The view package contains just raw data which is applied to the user interface.
+
+#### Activity package
+Contains the activities. Those activities build up the view models initial state. They should not do more.
+
+#### Adapter package
+Contains basic adapters for user interface components.
+
+#### Model package
+Contains the view models of our activities.
+
+## Contribution
+If you want to contribute, you need to do these steps:
+1. Fork the repository
+2. Make your changes
+3. Make a pull request
+
+We are using Google Checkstyle for unique coding style. You can download the xml configuration file [here](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml).
 
 ## License
 MIT © [Kevin Peters](https://github.com/igeligel) and [Leon Brettin](https://github.com/LeonBre)
