@@ -23,7 +23,7 @@ public class SearchRideActivity extends BaseActivity {
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Database.getInstance().SetApplicationContext(this);
+    Database.getInstance().setApplicationContext(this);
     setContentView(R.layout.search);
 
     SearchRidePresenter createRidePresenter = new SearchRidePresenter(this);
