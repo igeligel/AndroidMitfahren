@@ -14,11 +14,17 @@ import com.ostfalia.presentation.view.model.CreateRideViewModel;
 import java.util.Calendar;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Main activity class for creating rides.
  */
 public class CreateRideActivity extends BaseActivity {
+
   public CreateRideViewModel createRideViewModel;
 
+  /**
+   * On create Method of our CreateRideActivity.
+   * Initiates every UI element and all listeners
+   * @param savedInstanceState Autoparameter
+   */
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,6 +37,11 @@ public class CreateRideActivity extends BaseActivity {
     CreateRideListeners createRideListeners = new CreateRideListeners(this);
   }
 
+  /**
+   * Method to create the Menu to change the activity
+   * @param menu popup menu
+   * @return true if everything works
+   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
@@ -38,6 +49,11 @@ public class CreateRideActivity extends BaseActivity {
     return true;
   }
 
+  /**
+   * Method to switch the activitys, when an item of the menu is created
+   * @param item popup menu
+   * @return true if everything is right
+   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {

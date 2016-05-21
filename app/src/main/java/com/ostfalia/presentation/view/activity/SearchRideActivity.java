@@ -15,11 +15,16 @@ import com.ostfalia.presentation.view.model.SearchRideViewModel;
 import java.util.Calendar;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Main activity class for searching rides.
  */
 public class SearchRideActivity extends BaseActivity {
   public SearchRideViewModel searchRideViewModel;
 
+  /**
+   * On create Method of our SearchRideActivity.
+   * Initiates every UI element and all listeners
+   * @param savedInstanceState Autoparameter
+   */
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,6 +38,11 @@ public class SearchRideActivity extends BaseActivity {
     SearchRideListeners searchRideListeners = new SearchRideListeners(this);
   }
 
+  /**
+   * Method to create the Menu to change the activity
+   * @param menu popup menu
+   * @return true if everything works
+   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
@@ -40,6 +50,11 @@ public class SearchRideActivity extends BaseActivity {
     return true;
   }
 
+  /**
+   * Method to switch the activitys, when an item of the menu is created
+   * @param item popup menu
+   * @return true if everything is right
+   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
