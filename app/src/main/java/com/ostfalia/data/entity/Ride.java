@@ -1,7 +1,7 @@
 package com.ostfalia.data.entity;
 
 /**
- * Created by Kevin on 05/06/2016.
+ * Entity Model for Rides in the Database
  */
 public class Ride {
   public int Id;

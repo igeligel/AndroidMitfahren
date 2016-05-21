@@ -39,6 +39,14 @@ public final class RidesRepository {
   }
 
   // TODO: CHANGE TO A MODEL INSTEAD OF PARAMETERS!
+  /**
+   * Search for a ride in our repository
+   * @param startPoint Departure City of the Ride
+   * @param endPoint Arrival City of the Ride
+   * @param departureTime Departure Time of the Ride
+   * @param searchType Enum, which defines which Search Variables are put in
+   * @return List of all possible Rides for the given Input
+   */
   public static ArrayList<Ride> SearchRides(String startPoint, String endPoint, long departureTime, SearchType searchType) {
     FeedReaderDbHelper feedReaderDbHelper = Database.feedReaderDbHelper;
     SQLiteDatabase db = feedReaderDbHelper.getReadableDatabase();
