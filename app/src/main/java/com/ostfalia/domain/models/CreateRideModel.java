@@ -3,7 +3,7 @@ package com.ostfalia.domain.models;
 import java.util.Calendar;
 
 /**
- * Created by Kevin on 05/06/2016.
+ * model for the creation of a new ride
  */
 public class CreateRideModel {
   public String DepartureCity;
