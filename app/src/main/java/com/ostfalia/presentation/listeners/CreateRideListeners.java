@@ -17,16 +17,27 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Listener Class for the Create Ride Activity
+ * It implements the basic Interface ICreateListener for higher level code
  */
 public class CreateRideListeners implements ICreateListeners {
   private CreateRideActivity createRideActivity;
 
+  /**
+   * Starts the Listeners
+   * @param createRideActivity activity on which the listeners are set
+   */
   public CreateRideListeners(CreateRideActivity createRideActivity) {
     this.createRideActivity = createRideActivity;
     setListeners();
   }
 
+  /**
+   * //TODO KEIN Plan was das genau macht
+   * @param calendar
+   * @param departureTimePickerSetListenerParam
+   * @return
+   */
   private DatePickerDialog.OnDateSetListener getDatePickerDialogOnDateSetListener(
     final Calendar calendar,
     final TimePickerDialog.OnTimeSetListener departureTimePickerSetListenerParam) {
@@ -44,6 +55,7 @@ public class CreateRideListeners implements ICreateListeners {
     };
     return datePickerDialogOnDateSetListener;
   }
+
 
   private TimePickerDialog.OnTimeSetListener getTimePickerDialogOnTimeSetListener(
     final Calendar calendar,
@@ -95,11 +107,12 @@ public class CreateRideListeners implements ICreateListeners {
    */
   @Override
   public void setListeners() {
+    //Departure Listener
     final Calendar departureCalendar = createRideActivity.createRideViewModel.departureCalendar;
     final TimePickerDialog.OnTimeSetListener departureTimePickerSetListener = getTimePickerDialogOnTimeSetListener(departureCalendar, CreateRideCalendarType.DEPARTURE);
     DatePickerDialog.OnDateSetListener departureDatePickerDialogDateSetListener = getDatePickerDialogOnDateSetListener(departureCalendar, departureTimePickerSetListener);
     createRideActivity.createRideViewModel.buttonDeparture.setOnClickListener(getDatePickerDialogOnClickListener(departureDatePickerDialogDateSetListener));
-
+    //Arrival Listener
     final Calendar arrivalCalender = createRideActivity.createRideViewModel.arrivalCalender;
     TimePickerDialog.OnTimeSetListener arrivalTimePickerSetListener = getTimePickerDialogOnTimeSetListener(arrivalCalender, CreateRideCalendarType.ARRIVAL);
     DatePickerDialog.OnDateSetListener arrivalDatePickerDateSetListener = getDatePickerDialogOnDateSetListener(arrivalCalender, arrivalTimePickerSetListener);

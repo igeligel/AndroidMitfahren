@@ -12,12 +12,17 @@ import com.ostfalia.presentation.view.model.CreateRideViewModel;
 import java.util.ArrayList;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Presenter for the CreateRide Activity
  */
 public class CreateRidePresenter extends BasePresenter{
   public CreateRideViewModel createRideViewModel;
   private final CreateRideActivity  createRideActivity;
 
+  /**
+   * Constructor
+   * Initiates all UI Elements
+   * @param createRideActivity activ activity
+   */
   public CreateRidePresenter(CreateRideActivity createRideActivity) {
     super(createRideActivity);
     this.createRideActivity = createRideActivity;
@@ -58,6 +63,9 @@ public class CreateRidePresenter extends BasePresenter{
     return getEditTextById(R.id.editTextDescription);
   }
 
+  /**
+   * Initiates all Cities in the Adapter
+   */
   private void setAdapters() {
     createRideViewModel.autoCompleteTextViewDepartureCity.setAdapter(getStandardCitiesAdapter());
     createRideViewModel.autoCompleteTextViewArrivalCity.setAdapter(getStandardCitiesAdapter());
@@ -79,6 +87,10 @@ public class CreateRidePresenter extends BasePresenter{
     autoCompletePresenter.setCitiesToAutoCompleteList(autoCompleteTextViews);
   }
 
+  /**
+   * Method to get the Datastructure of the Creation
+   * @return Model of informations you need to create a new Ride
+   */
   public CreateRideViewModel getCreateRideViewModel() {
     return this.createRideViewModel;
   }

@@ -1,7 +1,7 @@
 package com.ostfalia.presentation.listeners;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Interface for the licener classes
  */
 public interface ICreateListeners {
   void setListeners();

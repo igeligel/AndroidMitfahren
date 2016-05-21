@@ -13,12 +13,17 @@ import com.ostfalia.presentation.view.model.SearchRideViewModel;
 import java.util.ArrayList;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Presenter for the CreateRide Activity
  */
 public class SearchRidePresenter extends BasePresenter{
   public SearchRideViewModel searchRideViewModel;
   private final SearchRideActivity searchRideActivity;
 
+  /**
+   * Constructor
+   * Initiates all UI Elements
+   * @param searchRideActivity activ activity
+   */
   public SearchRidePresenter(SearchRideActivity searchRideActivity) {
     super(searchRideActivity);
     this.searchRideActivity = searchRideActivity;
@@ -64,6 +69,9 @@ public class SearchRidePresenter extends BasePresenter{
     return getRelativeLayoutById(R.id.searchRelativeLayoutSearchField);
   }
 
+  /**
+   * Initiates all Cities in the Adapter
+   */
   private void setAdapters() {
     searchRideViewModel.autoCompleteTextViewDepartureCity.setAdapter(getStandardCitiesAdapter());
     searchRideViewModel.autoCompleteTextViewArrivalCity.setAdapter(getStandardCitiesAdapter());
