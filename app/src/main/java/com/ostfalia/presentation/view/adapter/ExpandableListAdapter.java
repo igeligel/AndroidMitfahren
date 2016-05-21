@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Leon on 29.04.16.
+ * Adapter for the list of possible rides
  */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -22,6 +22,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
   private List<String> _listDataHeader;
   private HashMap<String, List<String>> _listDataChild;
 
+  /**
+   * Constructor for the ExpandableList.
+   * @param context context of the application
+   * @param listDataHeader List of data headers for our data
+   * @param listChildData List of data
+   */
   public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                HashMap<String, List<String>> listChildData) {
     this._context = context;
@@ -29,16 +35,37 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     this._listDataChild = listChildData;
   }
 
+  /**
+   * gets data out of the ExpandableList
+   * @param groupPosition position of the element
+   * @param childPosititon position of the child element
+   * @return Object with our data
+   */
   @Override
   public Object getChild(int groupPosition, int childPosititon) {
     return this._listDataChild.get(this._listDataHeader.get(groupPosition));
   }
 
+  /**
+   * Method to get the Position of data
+   * @param groupPosition position of the element
+   * @param childPosition position of the child element
+   * @return position of the child/data
+   */
   @Override
   public long getChildId(int groupPosition, int childPosition) {
     return childPosition;
   }
 
+  /**
+   * Method to get the View of one Child Element of the Expandable List.
+   * @param groupPosition group Position of the Element.
+   * @param childPosition child Position of the Element.
+   * @param isLastChild boolean if the child is the last child.
+   * @param convertView convertView
+   * @param parent parentView
+   * @return View of the Child
+   */
   @Override
   public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
@@ -67,28 +94,55 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     return convertView;
   }
 
+  /**
+   * Gets the size of the childrens for one data header.
+   * @param groupPosition position of the data header.
+   * @return # of the childrens.
+   */
   @Override
   public int getChildrenCount(int groupPosition) {
     return this._listDataChild.get(this._listDataHeader.get(groupPosition))
       .size();
   }
 
+  /**
+   * Gets the Group for a group position
+   * @param groupPosition group position
+   * @return data header on the given position
+   */
   @Override
   public Object getGroup(int groupPosition) {
     return this._listDataHeader.get(groupPosition);
   }
 
+  /**
+   * Gets the # of Groups in the Expandable List
+   * @return + of Groups
+   */
   @Override
   public int getGroupCount() {
     if (this._listDataHeader == null) return 0;
     return this._listDataHeader.size();
   }
 
+  /**
+   * Gets the group id of a group position.
+   * @param groupPosition group position.
+   * @return id of the group position.
+   */
   @Override
   public long getGroupId(int groupPosition) {
     return groupPosition;
   }
 
+  /**
+   * Method to get the View of a group.
+   * @param groupPosition position of the group.
+   * @param isExpanded boolean if it is expandet.
+   * @param convertView actual view.
+   * @param parent parent element of the group.
+   * @return View of a group.
+   */
   @Override
   public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
     if (convertView == null) {

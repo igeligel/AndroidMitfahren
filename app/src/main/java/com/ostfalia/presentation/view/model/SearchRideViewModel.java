@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import java.util.Calendar;
 
 /**
- * Created by Kevin on 05/06/2016.
+ * Viewmodel for searching rides.
  */
 public class SearchRideViewModel {
   public RelativeLayout searchField;

@@ -7,7 +7,7 @@ import android.widget.EditText;
 import java.util.Calendar;
 
 /**
- * Created by Kevin on 05/05/2016.
+ * Viewmodel for creating rides.
  */
 public class CreateRideViewModel {
   public AutoCompleteTextView autoCompleteTextViewDepartureCity;
