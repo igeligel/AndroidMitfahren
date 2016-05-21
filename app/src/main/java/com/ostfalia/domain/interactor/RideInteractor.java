@@ -11,9 +11,14 @@ import com.ostfalia.domain.models.*;
 import java.util.ArrayList;
 
 /**
- * Created by Kevin on 05/06/2016.
+ * Class that contains the the interaction with the repository pattern
  */
 public final class RideInteractor {
+
+  /**
+   * Inserts a new ride in the database, if the given model is valid
+   * @param createRideModel possible input values for the repository
+   */
   public static void createRide(CreateRideModel createRideModel) {
     // If not valid immediately return.
     if (!CreateRideValidator.IsModelValid(createRideModel)) {
@@ -29,6 +34,11 @@ public final class RideInteractor {
     RidesRepository.InsertOrUpdateRide(ride);
   }
 
+  /**
+   * Search for possible rides for the given model in the repository, if the given model is valid
+   * @param searchRideModel possible input for searching in the repository
+   * @return list of possible rides
+   */
   public static ArrayList<Ride> getRides(SearchRideModel searchRideModel) {
 
     if (!SearchRideValidator.IsModelValid(searchRideModel)) {
@@ -42,6 +52,11 @@ public final class RideInteractor {
     return rides;
   }
 
+  /**
+   * Differentiate the given input in Searchtypes
+   * @param searchRideModel model to search in the repository
+   * @return searchtype for the repository
+   */
   private static SearchType getSearchTypeBySearchRideModel(SearchRideModel searchRideModel) {
     if (searchRideModel.ArrivalCity.length() == 0 && searchRideModel.DepartureCity.length() == 0) {
       return SearchType.NO_CITY;
