@@ -9,10 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  * If you change the database scheme, you need to increment the database version.
  */
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
-
-  public static final int DATABASE_VERSION = 4;
-  public static final String DATABASE_NAME = "drive.db";
-
+  private static final int DATABASE_VERSION = 4;
+  private static final String DATABASE_NAME = "drive.db";
   private static final String TEXT_TYPE = " TEXT";
   private static final String BIGINTEGER_TYPE = " BIGINTEGER";
   private static final String COMMA_SEP = ",";
@@ -28,10 +26,11 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
               + " );";
 
   private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + FeedReaderContract.FeedEntry.TABLE_NAME;
+      "DROP TABLE IF EXISTS " + FeedReaderContract.FeedEntry.TABLE_NAME;
 
   /**
-   * Constructor for the feed reader database helper. This will use the constructor of SQLiteOpenHelper.
+   * Constructor for the feed reader database helper.
+   * This will use the constructor of SQLiteOpenHelper.
    * @param context Application context which should be used.
    */
   public FeedReaderDbHelper(Context context) {
@@ -66,5 +65,4 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
   public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     onUpgrade(db, oldVersion, newVersion);
   }
-
 }
