@@ -1,5 +1,7 @@
 package com.ostfalia.presentation.view.model;
 
+import android.os.IBinder;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;

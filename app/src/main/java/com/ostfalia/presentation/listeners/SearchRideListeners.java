@@ -2,7 +2,9 @@ package com.ostfalia.presentation.listeners;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
@@ -116,6 +118,8 @@ public class SearchRideListeners implements ICreateListeners {
     searchRideActivity.searchRideViewModel.buttonSearchRide.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        InputMethodManager inputManager = (InputMethodManager)searchRideActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(searchRideActivity.getCurrentFocus().getWindowToken(), 0);
         SearchRideModel searchRideModel = new SearchRideModel();
         searchRideModel.DepartureCity = searchRideActivity.searchRideViewModel.autoCompleteTextViewDepartureCity.getText().toString();
         searchRideModel.ArrivalCity = searchRideActivity.searchRideViewModel.autoCompleteTextViewArrivalCity.getText().toString();
