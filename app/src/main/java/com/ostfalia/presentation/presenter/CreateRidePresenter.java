@@ -1,12 +1,12 @@
 package com.ostfalia.presentation.presenter;
 
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.ostfalia.mitfahren.R;
 import com.ostfalia.presentation.view.activity.CreateRideActivity;
-import com.ostfalia.presentation.view.adapter.CitiesAdapter;
 import com.ostfalia.presentation.view.model.CreateRideViewModel;
 
 import java.util.ArrayList;
@@ -69,10 +69,12 @@ public class CreateRidePresenter extends BasePresenter{
   private void setAdapters() {
     createRideViewModel.autoCompleteTextViewDepartureCity.setAdapter(getStandardCitiesAdapter());
     createRideViewModel.autoCompleteTextViewArrivalCity.setAdapter(getStandardCitiesAdapter());
+
   }
 
-  private CitiesAdapter getStandardCitiesAdapter() {
-    return new CitiesAdapter(createRideActivity,android.R.layout.simple_list_item_1, getCities());
+  private ArrayAdapter getStandardCitiesAdapter() {
+    return new ArrayAdapter<String>(createRideActivity.getApplicationContext()
+            , R.layout.autocompletetext, getCities());
   }
 
   private String[] getCities() {

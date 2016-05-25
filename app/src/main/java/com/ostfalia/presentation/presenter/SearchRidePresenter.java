@@ -1,5 +1,6 @@
 package com.ostfalia.presentation.presenter;
 
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -7,7 +8,6 @@ import android.widget.RelativeLayout;
 
 import com.ostfalia.mitfahren.R;
 import com.ostfalia.presentation.view.activity.SearchRideActivity;
-import com.ostfalia.presentation.view.adapter.CitiesAdapter;
 import com.ostfalia.presentation.view.model.SearchRideViewModel;
 
 import java.util.ArrayList;
@@ -77,8 +77,9 @@ public class SearchRidePresenter extends BasePresenter{
     searchRideViewModel.autoCompleteTextViewArrivalCity.setAdapter(getStandardCitiesAdapter());
   }
 
-  private CitiesAdapter getStandardCitiesAdapter() {
-    return new CitiesAdapter(searchRideActivity,android.R.layout.simple_list_item_1, getCities());
+  private ArrayAdapter<String> getStandardCitiesAdapter() {
+    return new ArrayAdapter<String>(searchRideActivity.getApplicationContext()
+            , R.layout.autocompletetext, getCities());
   }
 
   private String[] getCities() {
