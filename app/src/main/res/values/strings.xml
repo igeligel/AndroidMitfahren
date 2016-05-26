@@ -29,9 +29,9 @@
     <string name="search_NoRideFound">Keine Fahrt gefunden</string>
 
     <string name="layout_from">Von:</string>
-    <string name="layout_hintFrom">Braunschweig\.\.\.</string>
+    <string name="layout_hintFrom">Braunschweig...</string>
     <string name="layout_to">Nach:</string>
-    <string name="layout_hintTo">Hamburg\.\.\.</string>
+    <string name="layout_hintTo">Hamburg...</string>
     <string name="layout_departure">Abfahrt</string>
     <string name="layout_arrival">Ankunft</string>
     <string name="layout_description">Beschreibung:</string>
