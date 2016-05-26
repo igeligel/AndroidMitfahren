@@ -109,19 +109,19 @@ public class CreateRideListeners implements ICreateListeners {
     Context activityContext = createRideActivity.getApplicationContext();
     switch (type) {
       case DEPARTURE:
-        ToastPresenter.makeToast("Abfahrtsort fehlt !", activityContext);
+        ToastPresenter.makeToast("Abfahrtsort fehlt", activityContext);
         break;
       case ARRIVAL:
-        ToastPresenter.makeToast("Ankunftsort fehlt !", activityContext);
+        ToastPresenter.makeToast("Ankunftsort fehlt", activityContext);
         break;
       case DEPARTURE_DATE:
-        ToastPresenter.makeToast("Abfahrtszeit ist falsch !", activityContext);
+        ToastPresenter.makeToast("Abfahrtszeit ist falsch", activityContext);
         break;
       case ARRIVAL_DATE:
-        ToastPresenter.makeToast("Ankunftszeit ist falsch !", activityContext);
+        ToastPresenter.makeToast("Ankunftszeit ist falsch", activityContext);
         break;
       case DESCRIPTION:
-        ToastPresenter.makeToast("Beschreibung fehlt !", activityContext);
+        ToastPresenter.makeToast("Beschreibung fehlt", activityContext);
         break;
       default:
         break;

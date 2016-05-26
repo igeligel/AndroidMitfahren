@@ -16,20 +16,21 @@ public final class CreateRideValidator {
    * @return true, when the model is valid, else it returns false
    */
   public static MissingSearchType IsModelValid(CreateRideModel createRideModel) {
-    if (createRideModel.Description.length() == 0) {
-      return MissingSearchType.DESCRIPTION;
+
+    if (createRideModel.DepartureCity.length() == 0) {
+      return MissingSearchType.DEPARTURE;
     }
     if (createRideModel.ArrivalCity.length() == 0) {
       return MissingSearchType.ARRIVAL;
     }
-    if (createRideModel.DepartureCity.length() == 0) {
-      return MissingSearchType.DEPARTURE;
+    if (createRideModel.DepartureCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+      return MissingSearchType.DEPARTURE_DATE;
     }
     if (createRideModel.ArrivalCalendar.getTimeInMillis() < createRideModel.DepartureCalendar.getTimeInMillis()) {
       return MissingSearchType.ARRIVAL_DATE;
     }
-    if (createRideModel.DepartureCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
-      return MissingSearchType.DEPARTURE_DATE;
+    if (createRideModel.Description.length() == 0) {
+      return MissingSearchType.DESCRIPTION;
     }
     return MissingSearchType.NONE;
   }
