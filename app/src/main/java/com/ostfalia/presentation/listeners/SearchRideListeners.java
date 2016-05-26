@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by Kevin on 05/06/2016.
+ *
  */
 public class SearchRideListeners implements ICreateListeners {
 

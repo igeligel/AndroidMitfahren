@@ -1,8 +1,7 @@
 package com.ostfalia.domain.validator;
 
 import com.ostfalia.domain.models.CreateRideModel;
-import com.ostfalia.domain.models.MissingSearchType;
-import com.ostfalia.presentation.presenter.ToastPresenter;
+import com.ostfalia.domain.models.MissingCreateType;
 
 import java.util.Calendar;
 
@@ -15,23 +14,23 @@ public final class CreateRideValidator {
    * @param createRideModel given input model
    * @return true, when the model is valid, else it returns false
    */
-  public static MissingSearchType IsModelValid(CreateRideModel createRideModel) {
+  public static MissingCreateType IsModelValid(CreateRideModel createRideModel) {
 
     if (createRideModel.DepartureCity.length() == 0) {
-      return MissingSearchType.DEPARTURE;
+      return MissingCreateType.DEPARTURE;
     }
     if (createRideModel.ArrivalCity.length() == 0) {
-      return MissingSearchType.ARRIVAL;
+      return MissingCreateType.ARRIVAL;
     }
     if (createRideModel.DepartureCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
-      return MissingSearchType.DEPARTURE_DATE;
+      return MissingCreateType.DEPARTURE_DATE;
     }
     if (createRideModel.ArrivalCalendar.getTimeInMillis() < createRideModel.DepartureCalendar.getTimeInMillis()) {
-      return MissingSearchType.ARRIVAL_DATE;
+      return MissingCreateType.ARRIVAL_DATE;
     }
     if (createRideModel.Description.length() == 0) {
-      return MissingSearchType.DESCRIPTION;
+      return MissingCreateType.DESCRIPTION;
     }
-    return MissingSearchType.NONE;
+    return MissingCreateType.NONE;
   }
 }

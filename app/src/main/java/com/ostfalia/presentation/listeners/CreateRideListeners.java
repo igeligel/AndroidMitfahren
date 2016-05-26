@@ -10,7 +10,7 @@ import android.widget.TimePicker;
 
 import com.ostfalia.domain.models.CreateRideModel;
 import com.ostfalia.domain.interactor.RideInteractor;
-import com.ostfalia.domain.models.MissingSearchType;
+import com.ostfalia.domain.models.MissingCreateType;
 import com.ostfalia.presentation.enums.CreateRideCalendarType;
 import com.ostfalia.presentation.presenter.ToastPresenter;
 import com.ostfalia.presentation.view.activity.CreateRideActivity;
@@ -105,7 +105,7 @@ public class CreateRideListeners implements ICreateListeners {
     };
   }
 
-  private void sendMissingSearchType(MissingSearchType type) {
+  private void sendMissingSearchType(MissingCreateType type) {
     Context activityContext = createRideActivity.getApplicationContext();
     switch (type) {
       case DEPARTURE:
@@ -122,6 +122,9 @@ public class CreateRideListeners implements ICreateListeners {
         break;
       case DESCRIPTION:
         ToastPresenter.makeToast("Beschreibung fehlt", activityContext);
+        break;
+      case NONE:
+        ToastPresenter.makeToast("Fahrt wurde erstellt" , activityContext);
         break;
       default:
         break;
@@ -156,7 +159,7 @@ public class CreateRideListeners implements ICreateListeners {
         createRideModel.Description = createRideActivity.createRideViewModel.editTextDescription.getText().toString();
         createRideModel.DepartureCalendar = departureCalendar;
         createRideModel.ArrivalCalendar = arrivalCalender;
-        MissingSearchType missingType = RideInteractor.createRide(createRideModel);
+        MissingCreateType missingType = RideInteractor.createRide(createRideModel);
         sendMissingSearchType(missingType);
       }
     });
