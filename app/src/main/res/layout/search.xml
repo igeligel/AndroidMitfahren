@@ -33,7 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
-                android:text="Von:"
+                android:text="@string/layout_from"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"/>
 
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/textViewDepartureCity"
-                android:hint="Braunschweig..."
+                android:hint="@string/layout_hintFrom"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"/>
             />
@@ -64,7 +64,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
-                android:text="Nach:"
+                android:text="@string/layout_to"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"/>
 
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/textViewArrivalCity"
-                android:hint="Hamburg..."
+                android:hint="@string/layout_hintTo"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
 
@@ -95,7 +95,7 @@
                 android:layout_below="@+id/relativeLayoutCreateArrival"
                 android:layout_weight="1"
                 android:background="@color/colorBackgroundBlue"
-                android:text="Datum"
+                android:text="@string/layout_date"
                 android:textColor="@color/white"/>
 
             <Button
@@ -106,7 +106,7 @@
                 android:layout_below="@+id/relativeLayoutCreateArrival"
                 android:layout_weight="1"
                 android:background="@color/colorBackgroundBlue"
-                android:text="Zeit"
+                android:text="@string/layout_date"
                 android:textColor="@color/white"/>
         </LinearLayout>
     </RelativeLayout>
@@ -121,7 +121,7 @@
         android:background="@color/orange"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="Suchen"
+        android:text="@string/layout_search"
         android:textColor="@color/white"/>
 
     <ExpandableListView

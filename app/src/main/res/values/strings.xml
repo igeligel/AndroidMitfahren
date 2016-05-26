@@ -27,4 +27,16 @@
     <string name="search_ArrivalMissing">Alle Fahrten von der Abfahrt ab gegebener Zeit werden ausgegeben</string>
     <string name="search_TimeMissing">Alle Fahrten werden von jetzt an ausgegeben</string>
     <string name="search_NoRideFound">Keine Fahrt gefunden</string>
+
+    <string name="layout_from">Von:</string>
+    <string name="layout_hintFrom">Braunschweig...</string>
+    <string name="layout_to">Nach:</string>
+    <string name="layout_hintTo">Hamburg...</string>
+    <string name="layout_departure">Abfahrt</string>
+    <string name="layout_arrival">Ankunft</string>
+    <string name="layout_description">Beschreibung:</string>
+    <string name="layout_create">Erstellen</string>
+    <string name="layout_date">Datum</string>
+    <String name="layout_time">Zeit</String>
+    <string name="layout_search">Suchen</string>
 </resources>

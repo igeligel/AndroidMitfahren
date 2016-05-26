@@ -13,8 +13,4 @@
         android:paddingBottom="5dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:text="Von: "/>
-
-
-
-
 </LinearLayout>
