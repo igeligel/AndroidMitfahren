@@ -31,7 +31,8 @@
             android:layout_toRightOf="@id/textViewDepartureCity"
             android:hint="@string/layout_hintFrom"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:imeOptions="actionDone"/>
         />
     </RelativeLayout>
 
@@ -65,7 +66,7 @@
             android:hint="@string/layout_hintTo"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
-
+            android:imeOptions="actionDone"
             />
     </RelativeLayout>
 
@@ -135,7 +136,8 @@
             android:layout_toRightOf="@id/textViewBeschreibung"
             android:ems="10"
             android:textColor="#ffffff"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:imeOptions="actionDone"/>
 
     </RelativeLayout>
 
