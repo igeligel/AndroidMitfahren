@@ -19,10 +19,11 @@ public final class RideInteractor {
    * Inserts a new ride in the database, if the given model is valid
    * @param createRideModel possible input values for the repository
    */
-  public static void createRide(CreateRideModel createRideModel) {
-    // If not valid immediately return.
-    if (!CreateRideValidator.IsModelValid(createRideModel)) {
-      return;
+  public static MissingSearchType createRide(CreateRideModel createRideModel) {
+    // If not valid immediately return the missing type.
+    MissingSearchType missingType = CreateRideValidator.IsModelValid(createRideModel);
+    if (missingType != MissingSearchType.NONE) {
+      return missingType;
     }
 
     Ride ride = new Ride();
@@ -32,6 +33,7 @@ public final class RideInteractor {
     ride.ArrivalTimestamp = createRideModel.ArrivalCalendar.getTimeInMillis() / 1000;
     ride.DepartureTimestamp = createRideModel.DepartureCalendar.getTimeInMillis() / 1000;
     RidesRepository.InsertOrUpdateRide(ride);
+    return MissingSearchType.NONE;
   }
 
   /**

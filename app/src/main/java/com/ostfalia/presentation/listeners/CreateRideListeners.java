@@ -10,7 +10,9 @@ import android.widget.TimePicker;
 
 import com.ostfalia.domain.models.CreateRideModel;
 import com.ostfalia.domain.interactor.RideInteractor;
+import com.ostfalia.domain.models.MissingSearchType;
 import com.ostfalia.presentation.enums.CreateRideCalendarType;
+import com.ostfalia.presentation.presenter.ToastPresenter;
 import com.ostfalia.presentation.view.activity.CreateRideActivity;
 
 import java.text.SimpleDateFormat;
@@ -103,6 +105,29 @@ public class CreateRideListeners implements ICreateListeners {
     };
   }
 
+  private void sendMissingSearchType(MissingSearchType type) {
+    Context activityContext = createRideActivity.getApplicationContext();
+    switch (type) {
+      case DEPARTURE:
+        ToastPresenter.makeToast("Abfahrtsort fehlt !", activityContext);
+        break;
+      case ARRIVAL:
+        ToastPresenter.makeToast("Ankunftsort fehlt !", activityContext);
+        break;
+      case DEPARTURE_DATE:
+        ToastPresenter.makeToast("Abfahrtszeit ist falsch !", activityContext);
+        break;
+      case ARRIVAL_DATE:
+        ToastPresenter.makeToast("Ankunftszeit ist falsch !", activityContext);
+        break;
+      case DESCRIPTION:
+        ToastPresenter.makeToast("Beschreibung fehlt !", activityContext);
+        break;
+      default:
+        break;
+    }
+  }
+
   /**
    * Method to set all listeners.
    */
@@ -131,7 +156,8 @@ public class CreateRideListeners implements ICreateListeners {
         createRideModel.Description = createRideActivity.createRideViewModel.editTextDescription.getText().toString();
         createRideModel.DepartureCalendar = departureCalendar;
         createRideModel.ArrivalCalendar = arrivalCalender;
-        RideInteractor.createRide(createRideModel);
+        MissingSearchType missingType = RideInteractor.createRide(createRideModel);
+        sendMissingSearchType(missingType);
       }
     });
   }
