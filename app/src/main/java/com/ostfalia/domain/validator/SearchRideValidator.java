@@ -1,5 +1,7 @@
 package com.ostfalia.domain.validator;
 
+import android.util.Log;
+
 import com.ostfalia.domain.models.MissingSearchType;
 import com.ostfalia.domain.models.SearchRideModel;
 import com.ostfalia.presentation.presenter.ToastPresenter;
@@ -27,10 +29,9 @@ public final class SearchRideValidator {
     if(searchRideModel.ArrivalCity.length() == 0) {
       validArrivalCity = false;
     }
-    if(searchRideModel.Calendar.getTimeInMillis()
-            >= Calendar.getInstance().getTimeInMillis() &&
-            searchRideModel.Calendar.getTimeInMillis()
-                    < Calendar.getInstance().getTimeInMillis() + 1000) {
+    long inputTime = searchRideModel.Calendar.getTimeInMillis();
+    long actualTime = Calendar.getInstance().getTimeInMillis();
+    if(inputTime <= actualTime && inputTime > actualTime - 100000) {
       validTime = false;
     }
 
@@ -51,8 +52,10 @@ public final class SearchRideValidator {
     } else  {
       missingType = MissingSearchType.NONE;
     }
-    
+
     return missingType;
   }
+
+  private MissingSearchType validateMissingSearchType()
 
 }

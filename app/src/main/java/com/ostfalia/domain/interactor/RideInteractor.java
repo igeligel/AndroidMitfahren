@@ -41,17 +41,17 @@ public final class RideInteractor {
    * @param searchRideModel possible input for searching in the repository
    * @return list of possible rides
    */
-  public static ArrayList<Ride> getRides(SearchRideModel searchRideModel) {
-
-    if (!SearchRideValidator.IsModelValid(searchRideModel)) {
-      return new ArrayList<>();
+  public static SearchResult getRides(SearchRideModel searchRideModel) {
+    MissingSearchType missingType = SearchRideValidator.IsModelValid(searchRideModel);
+    if (missingType != MissingSearchType.NONE) {
+      return new SearchResult(missingType, new ArrayList<Ride>());
     }
     long departureTime = searchRideModel.Calendar.getTimeInMillis() / 1000;
     ArrayList<Ride> rides = RidesRepository.SearchRides(searchRideModel.DepartureCity,
       searchRideModel.ArrivalCity,
       departureTime,
       getSearchTypeBySearchRideModel(searchRideModel));
-    return rides;
+    return new SearchResult(missingType, rides);
   }
 
   /**

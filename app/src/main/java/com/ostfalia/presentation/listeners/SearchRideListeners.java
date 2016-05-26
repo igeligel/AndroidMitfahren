@@ -11,8 +11,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.ostfalia.data.entity.Ride;
+import com.ostfalia.domain.models.MissingSearchType;
+import com.ostfalia.domain.models.SearchResult;
 import com.ostfalia.domain.models.SearchRideModel;
 import com.ostfalia.domain.interactor.RideInteractor;
+import com.ostfalia.presentation.presenter.ToastPresenter;
 import com.ostfalia.presentation.view.adapter.ExpandableListAdapter;
 import com.ostfalia.mitfahren.R;
 import com.ostfalia.presentation.view.activity.SearchRideActivity;
@@ -107,6 +110,43 @@ public class SearchRideListeners implements ICreateListeners {
     return onClickListener;
   }
 
+  private void printResultToast(MissingSearchType missingType) {
+    Context activityContext = searchRideActivity.getApplicationContext();
+    switch (missingType) {
+      case ALL:
+        ToastPresenter.makeToast("Es werden alle Fahrten vom jetzigen Zeitpunkt aus angegeben", activityContext);
+        break;
+      case DEPARTURE_AND_ARRIVAL:
+        ToastPresenter.makeToast("Alle Fahrten ab dem gegebenen Zeitpunkt werden ausgegeben",
+                activityContext);
+        break;
+      case DEPARTURE_AND_TIME:
+        ToastPresenter.makeToast("Alle Fahrten zur Ankunft ab jetzt werden ausgegeben",
+                activityContext);
+        break;
+      case ARRIVAL_AND_TIME:
+        ToastPresenter.makeToast("Alle Fahrten von der Abfahrt ab jetzt werden ausgegeben",
+                activityContext);
+        break;
+      case DEPARTURE:
+        ToastPresenter.makeToast("Alle Fahrten zur Ankunft ab gegebener Zeit werden ausgegeben",
+                activityContext);
+        break;
+      case ARRIVAL:
+        ToastPresenter.makeToast("Alle Fahrten von der Abfahrt ab gegebener Zeit werden ausgegeben",
+                activityContext);
+        break;
+      case TIME:
+        ToastPresenter.makeToast("Alle Fahrten werden von jetzt an ausgegeben",
+                activityContext);
+        break;
+      case NONE:
+        break;
+      default:
+        break;
+    }
+  }
+
   @Override
   public void setListeners() {
     final DatePickerDialog.OnDateSetListener datePickerDialogOnDateSetListener = getDatePickerDialogOnDateSetListener();
@@ -124,7 +164,9 @@ public class SearchRideListeners implements ICreateListeners {
         searchRideModel.DepartureCity = searchRideActivity.searchRideViewModel.autoCompleteTextViewDepartureCity.getText().toString();
         searchRideModel.ArrivalCity = searchRideActivity.searchRideViewModel.autoCompleteTextViewArrivalCity.getText().toString();
         searchRideModel.Calendar = searchRideActivity.searchRideViewModel.searchCalender;
-        ArrayList<Ride> rides = RideInteractor.getRides(searchRideModel);
+        SearchResult ridesResult = RideInteractor.getRides(searchRideModel);
+        printResultToast(ridesResult.getMissingType());
+        ArrayList<Ride> rides = ridesResult.getRideList();
         if (rides.size() == 0) {
           String foundNoride = "Keine Fahrt gefunden";
           Toast toast = Toast.makeText(v.getContext(), foundNoride, Toast.LENGTH_SHORT);
