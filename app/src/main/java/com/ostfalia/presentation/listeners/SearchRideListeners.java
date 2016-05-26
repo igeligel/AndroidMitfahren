@@ -114,30 +114,31 @@ public class SearchRideListeners implements ICreateListeners {
     Context activityContext = searchRideActivity.getApplicationContext();
     switch (missingType) {
       case ALL:
-        ToastPresenter.makeToast("Es werden alle Fahrten vom jetzigen Zeitpunkt aus angegeben", activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_AllMissing),
+                activityContext);
         break;
       case DEPARTURE_AND_ARRIVAL:
-        ToastPresenter.makeToast("Alle Fahrten ab dem gegebenen Zeitpunkt werden ausgegeben",
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_DeparuteAndArrivalMissing),
                 activityContext);
         break;
       case DEPARTURE_AND_TIME:
-        ToastPresenter.makeToast("Alle Fahrten zur Ankunft ab jetzt werden ausgegeben",
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_DepartueAndTimeMissing),
                 activityContext);
         break;
       case ARRIVAL_AND_TIME:
-        ToastPresenter.makeToast("Alle Fahrten von der Abfahrt ab jetzt werden ausgegeben",
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_ArrivalAndTimeMissing),
                 activityContext);
         break;
       case DEPARTURE:
-        ToastPresenter.makeToast("Alle Fahrten zur Ankunft ab gegebener Zeit werden ausgegeben",
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_DepartureMissing),
                 activityContext);
         break;
       case ARRIVAL:
-        ToastPresenter.makeToast("Alle Fahrten von der Abfahrt ab gegebener Zeit werden ausgegeben",
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_ArrivalMissing),
                 activityContext);
         break;
       case TIME:
-        ToastPresenter.makeToast("Alle Fahrten werden von jetzt an ausgegeben",
+        ToastPresenter.makeToast(activityContext.getString(R.string.search_TimeMissing),
                 activityContext);
         break;
       case NONE:
@@ -168,9 +169,8 @@ public class SearchRideListeners implements ICreateListeners {
         printResultToast(ridesResult.getMissingType());
         ArrayList<Ride> rides = ridesResult.getRideList();
         if (rides.size() == 0) {
-          String foundNoride = "Keine Fahrt gefunden";
-          Toast toast = Toast.makeText(v.getContext(), foundNoride, Toast.LENGTH_SHORT);
-          toast.show();
+          ToastPresenter.makeToast(searchRideActivity.getString(R.string.search_NoRideFound),
+                  searchRideActivity.getApplicationContext());
           return;
         }
         // TOGGLE VIEW STATE

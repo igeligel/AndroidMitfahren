@@ -11,6 +11,7 @@ import android.widget.TimePicker;
 import com.ostfalia.domain.models.CreateRideModel;
 import com.ostfalia.domain.interactor.RideInteractor;
 import com.ostfalia.domain.models.MissingCreateType;
+import com.ostfalia.mitfahren.R;
 import com.ostfalia.presentation.enums.CreateRideCalendarType;
 import com.ostfalia.presentation.presenter.ToastPresenter;
 import com.ostfalia.presentation.view.activity.CreateRideActivity;
@@ -109,22 +110,28 @@ public class CreateRideListeners implements ICreateListeners {
     Context activityContext = createRideActivity.getApplicationContext();
     switch (type) {
       case DEPARTURE:
-        ToastPresenter.makeToast("Abfahrtsort fehlt", activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.create_DepartureMissing),
+                activityContext);
         break;
       case ARRIVAL:
-        ToastPresenter.makeToast("Ankunftsort fehlt", activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.create_ArrivalMissing),
+                activityContext);
         break;
       case DEPARTURE_DATE:
-        ToastPresenter.makeToast("Abfahrtszeit ist falsch", activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.create_DepartureTimeMissing),
+                activityContext);
         break;
       case ARRIVAL_DATE:
-        ToastPresenter.makeToast("Ankunftszeit ist falsch", activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.create_ArrivalTimeMissing),
+                activityContext);
         break;
       case DESCRIPTION:
-        ToastPresenter.makeToast("Beschreibung fehlt", activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.create_DescriptionMissing),
+                activityContext);
         break;
       case NONE:
-        ToastPresenter.makeToast("Fahrt wurde erstellt" , activityContext);
+        ToastPresenter.makeToast(activityContext.getString(R.string.create_RideCreated) ,
+                activityContext);
         break;
       default:
         break;

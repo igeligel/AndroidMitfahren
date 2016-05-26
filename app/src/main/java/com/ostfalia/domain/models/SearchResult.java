@@ -5,11 +5,11 @@ import com.ostfalia.data.entity.Ride;
 import java.util.ArrayList;
 
 /**
- *
+ * Helper class to put a an MissingSearchType and an Array in one Object
  */
 public class SearchResult {
-    public MissingSearchType missingType;
-    public ArrayList<Ride> rideList;
+    private MissingSearchType missingType;
+    private ArrayList<Ride> rideList;
 
     public SearchResult (MissingSearchType searchType, ArrayList <Ride> rideList) {
         this.missingType = searchType;

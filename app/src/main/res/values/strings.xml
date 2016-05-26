@@ -11,4 +11,20 @@
         <item>Berlin</item>
     </string-array>
     <string name="debug_application_name">Mitfahren_Debug</string>
+
+    <string name="create_DepartureMissing">Abfahrtsort fehlt</string>
+    <string name="create_ArrivalMissing">Ankunftsort fehlt</string>
+    <string name="create_DepartureTimeMissing">Abfahrtszeit ist falsch</string>
+    <string name="create_ArrivalTimeMissing">Ankunftszeit ist falsch</string>
+    <string name="create_DescriptionMissing">Beschreibung fehlt</string>
+    <string name="create_RideCreated">Fahrt wurde erstellt</string>
+
+    <string name="search_AllMissing">Es werden alle Fahrten vom jetzigen Zeitpunkt aus angegeben</string>
+    <string name="search_DeparuteAndArrivalMissing">Alle Fahrten ab dem gegebenen Zeitpunkt werden ausgegeben</string>
+    <string name="search_DepartueAndTimeMissing">Alle Fahrten zur Ankunft ab jetzt werden ausgegeben</string>
+    <string name="search_ArrivalAndTimeMissing">Alle Fahrten von der Abfahrt ab jetzt werden ausgegeben</string>
+    <string name="search_DepartureMissing">Alle Fahrten zur Ankunft ab gegebener Zeit werden ausgegeben</string>
+    <string name="search_ArrivalMissing">Alle Fahrten von der Abfahrt ab gegebener Zeit werden ausgegeben</string>
+    <string name="search_TimeMissing">Alle Fahrten werden von jetzt an ausgegeben</string>
+    <string name="search_NoRideFound">Keine Fahrt gefunden</string>
 </resources>

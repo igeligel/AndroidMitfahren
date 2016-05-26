@@ -15,13 +15,12 @@ public final class SearchRideValidator {
   /**
    * Validates the given model
    * @param searchRideModel given Model
-   * @return true everytime, cause every search option can be handled by the database
+   * @return missing input type
    */
   public static MissingSearchType IsModelValid(SearchRideModel searchRideModel) {
     boolean validDepartureCity = true;
     boolean validArrivalCity = true;
     boolean validTime = true;
-    MissingSearchType missingType;
 
     if(searchRideModel.DepartureCity.length() == 0) {
       validDepartureCity = false;
@@ -35,27 +34,36 @@ public final class SearchRideValidator {
       validTime = false;
     }
 
-    if (!validDepartureCity && !validArrivalCity && !validTime) {
-      missingType = MissingSearchType.ALL;
-    } else if (!validDepartureCity && !validArrivalCity) {
-      missingType = MissingSearchType.DEPARTURE_AND_ARRIVAL;
-    } else if (!validDepartureCity && !validTime) {
-      missingType = MissingSearchType.DEPARTURE_AND_TIME;
-    } else if (!validArrivalCity && !validTime) {
-      missingType = MissingSearchType.ARRIVAL_AND_TIME;
-    } else if (!validDepartureCity) {
-      missingType = MissingSearchType.DEPARTURE;
-    } else if (!validArrivalCity) {
-      missingType = MissingSearchType.ARRIVAL;
-    } else if (!validTime) {
-      missingType = MissingSearchType.TIME;
-    } else  {
-      missingType = MissingSearchType.NONE;
-    }
-
-    return missingType;
+    return validateMissingSearchType(validDepartureCity, validArrivalCity, validTime);
   }
 
-  private MissingSearchType validateMissingSearchType()
+  /**
+   * Method to get the Missing Type of the given Searchtype
+   * @param validDepartureCity is the departure city valid
+   * @param validArrivalCity is the arrival city valid
+   * @param validTime is the time valid
+   * @return type of the valid values
+   */
+  private static  MissingSearchType validateMissingSearchType(
+          boolean validDepartureCity, boolean validArrivalCity, boolean validTime) {
+
+    if (!validDepartureCity && !validArrivalCity && !validTime) {
+      return MissingSearchType.ALL;
+    } else if (!validDepartureCity && !validArrivalCity) {
+      return MissingSearchType.DEPARTURE_AND_ARRIVAL;
+    } else if (!validDepartureCity && !validTime) {
+      return MissingSearchType.DEPARTURE_AND_TIME;
+    } else if (!validArrivalCity && !validTime) {
+      return MissingSearchType.ARRIVAL_AND_TIME;
+    } else if (!validDepartureCity) {
+      return MissingSearchType.DEPARTURE;
+    } else if (!validArrivalCity) {
+      return MissingSearchType.ARRIVAL;
+    } else if (!validTime) {
+      return MissingSearchType.TIME;
+    } else  {
+      return MissingSearchType.NONE;
+    }
+  }
 
 }

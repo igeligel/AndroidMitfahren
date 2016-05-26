@@ -12,7 +12,7 @@ public final class CreateRideValidator {
   /**
    * Checks if the given model is valid to create a new ride in the Database
    * @param createRideModel given input model
-   * @return true, when the model is valid, else it returns false
+   * @return missing input type
    */
   public static MissingCreateType IsModelValid(CreateRideModel createRideModel) {
 
