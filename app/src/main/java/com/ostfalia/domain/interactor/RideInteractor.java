@@ -43,7 +43,7 @@ public final class RideInteractor {
    */
   public static SearchResult getRides(SearchRideModel searchRideModel) {
     MissingSearchType missingType = SearchRideValidator.IsModelValid(searchRideModel);
-    if (missingType != MissingSearchType.NONE) {
+    if (missingType == MissingSearchType.ALL) {
       return new SearchResult(missingType, new ArrayList<Ride>());
     }
     long departureTime = searchRideModel.Calendar.getTimeInMillis() / 1000;

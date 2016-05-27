@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/searchNew"
-          android:title="Suchen" />
+          android:title="@string/layout_menuSearch" />
     <item android:id="@+id/createNew"
-          android:title="Erstellen" />
+          android:title="@string/layout_menuCreate" />
 </menu>

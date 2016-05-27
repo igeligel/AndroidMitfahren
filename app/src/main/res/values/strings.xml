@@ -6229,7 +6229,7 @@ Zwönitz
     <string name="create_DescriptionMissing">Beschreibung fehlt</string>
     <string name="create_RideCreated">Fahrt wurde erstellt</string>
 
-    <string name="search_AllMissing">Es werden alle Fahrten vom jetzigen Zeitpunkt aus angegeben</string>
+    <string name="search_AllMissing">Nichts angegeben</string>
     <string name="search_DeparuteAndArrivalMissing">Alle Fahrten ab dem gegebenen Zeitpunkt werden ausgegeben</string>
     <string name="search_DepartueAndTimeMissing">Alle Fahrten zur Ankunft ab jetzt werden ausgegeben</string>
     <string name="search_ArrivalAndTimeMissing">Alle Fahrten von der Abfahrt ab jetzt werden ausgegeben</string>
@@ -6249,4 +6249,7 @@ Zwönitz
     <string name="layout_date">Datum</string>
     <string name="layout_time">Zeit</string>
     <string name="layout_search">Suchen</string>
+
+    <string name="layout_menuCreate">Erstellen</string>
+    <string name="layout_menuSearch">Suchen</string>
 </resources>
