@@ -111,6 +111,7 @@ public class SearchRideListeners implements ICreateListeners {
   }
 
   private void printResultToast(MissingSearchType missingType) {
+    if (searchRideActivity.searchRideViewModel.ResultViewMode) return;
     Context activityContext = searchRideActivity.getApplicationContext();
     switch (missingType) {
       case ALL:
